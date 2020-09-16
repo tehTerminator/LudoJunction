@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "LudoJunction"
+    }
+  },
+  "defaultProject": "LudoJunction",
+  "cli": {
+    "analytics": "a5af5e8e-518c-4fa7-b6e7-c7da0661505e"
+  }
 }
