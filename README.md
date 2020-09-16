@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LudoJunction
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
@@ -25,3 +26,6 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+=======
+# LudoJunction
+>>>>>>> 3bbcb39eb3f6b33769a71fe11a3f69e411db8f68
