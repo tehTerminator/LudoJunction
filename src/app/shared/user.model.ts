@@ -1,5 +1,6 @@
 export class User{
     private id: number;
+    private _type: string;
     private _token: string;
     public title: string;
     public username: string;
@@ -9,36 +10,27 @@ export class User{
         title: string,
         username: string,
         token: string,
-        generatedOn: number
+        generatedOn: number,
+		type: string
     ) {
         this.id = 0;
         this.title = title;
         this.username = username;
+	this._type = type;
         this._token = token;
         this.generatedOn = generatedOn;
     }
 
     get token(): string {
-        const now = (new Date()).getTime();
-        if (now > this.generatedOn ){
+        const minTime = (new Date()).getTime() - HOUR;
+        if ( minTime <= this.generatedOn ){
             return this._token;
         } else {
             return null;
         }
     }
-}
 
-export class Player extends User {
-    public balance: number;
+    get type(): string {
+	    return this._type.toUpperCase();
+	}
 
-    constructor(
-        title: string,
-        username: string,
-        token: string,
-        generatedOn: number,
-        balance: number
-    ) {
-        super(title, username, token, generatedOn);
-        this.balance = balance;
-    }
-}
