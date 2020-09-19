@@ -38,7 +38,7 @@ export class SignUpComponent implements OnInit {
 		this.authService.signUp(title, email, password)
 			.subscribe((res: SqlResponse) => {
 				if (res.status) {
-					this.router.navigate(['activate', res.data[0].id ]);
+					this.router.navigate(['/login', 'activate', res.data[0].id ]);
 				} else {
 					// Show Some Error Message
 					console.log('Unable to Process this time');

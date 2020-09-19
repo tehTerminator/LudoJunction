@@ -7,7 +7,8 @@ export const environment = {
   url: {
     user: {
       signIn: 'http://localhost:80/ludoJunction/api/user.signIn.php',
-      signUp: 'http://localhost:80/ludoJunction/api/user.signUp.php'
+      signUp: 'http://localhost:80/ludoJunction/api/user.signUp.php',
+      activate: 'http://localhost:80/ludoJunction/api/user.activate.php'
     },
   }
 };

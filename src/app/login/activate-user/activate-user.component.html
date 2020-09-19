@@ -1,8 +1,7 @@
-<form [formGroup]="activationForm">
+<form [formGroup]="activationForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="otp">OTP</label>
         <input class="form-control" type="text" name="otp" formControlName="otp" id="">
     </div>
-    
-        <button type="submit" class="btn btn-primary mr-1">Submit</button>
+    <button type="submit" class="btn btn-primary d-block w-100">Submit</button>
 </form>

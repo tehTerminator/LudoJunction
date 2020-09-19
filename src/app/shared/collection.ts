@@ -6,7 +6,7 @@ export const PLAYER = 'PLAYER';
 
 export interface SqlResponse {
     errors: Array<string>;
-    log: Array<string>;
+    message: Array<string>;
     status: boolean;
     data: Array<any>;
 }
