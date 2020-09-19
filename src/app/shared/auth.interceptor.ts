@@ -14,11 +14,14 @@ export class AuthInterceptor implements HttpInterceptor {
         this.authService.user.pipe(take(1))
         .subscribe((user: User) => {
             if (!!user) {
-                request = request.clone({
-                    setHeaders: {
-                        Authorization: user.token
-                    }
-                });
+                const token = user.token;
+                if (token !== null) {
+                    request = request.clone({
+                        setHeaders: {
+                            Authorization: user.token
+                        }
+                    });
+                }
             }
         });
         return next.handle(request);

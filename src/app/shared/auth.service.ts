@@ -79,6 +79,10 @@ export class AuthService implements OnDestroy {
     }));
   }
 
+  get userId(): number {
+    return this.user.getValue().id;
+  }
+
   private autoSignIn(): void {
     const userData: UserData = JSON.parse(localStorage.getItem('user'));
     if (userData !== null) {
