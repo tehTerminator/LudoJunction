@@ -6,9 +6,9 @@ export const environment = {
   production: false,
   url: {
     user: {
-      signIn: 'signIn Url',
-      signUp: 'signUp Url'
-    }
+      signIn: 'http://192.168.0.10/ludoJunction/api/user.signIn.php',
+      signUp: 'http://192.168.0.10/ludoJunction/api/user.signUp.php'
+    },
   }
 };
 
