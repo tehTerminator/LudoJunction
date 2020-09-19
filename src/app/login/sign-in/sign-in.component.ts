@@ -37,7 +37,7 @@ export class SignInComponent implements OnInit {
 			.subscribe((res: SqlResponse) => {
 				if (res.status && res.data.length === 1) {
 					const userData = res.data[0];
-					
+
 					// if (userData.type === ADMINISTRATOR) {
 					// 	// Goto Admin Dashboard
 					// 	// this.router.nagivate(['/admin']);
