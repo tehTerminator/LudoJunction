@@ -31,7 +31,8 @@ export class AuthService implements OnDestroy {
   }
 
   public signIn(username: string, password: string) {
-    this.http.post(environment.url.user.signIn, { username, password })
+    const url = environment.url.base + environment.url.user.signIn;
+    return this.http.post(url, { username, password })
       .pipe(tap((response: SqlResponse) => {
         if (response.status && response.data.length === 1) {
           const userData = response.data[0];
@@ -74,6 +75,11 @@ export class AuthService implements OnDestroy {
     if (userData !== null) {
       this.handleAuthentication(userData);
     }
+  }
+
+  public signUp(title: string, email: string, password: string) {
+    const url = environment.url.user.signUp;
+    return this.http.post(url, { title, email, password });
   }
 
   ngOnDestroy() {
