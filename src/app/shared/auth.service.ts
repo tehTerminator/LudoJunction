@@ -31,7 +31,7 @@ export class AuthService implements OnDestroy {
   }
 
   public signIn(username: string, password: string) {
-    const url = environment.url.base + environment.url.user.signIn;
+    const url = environment.url.user.signIn;
     return this.http.post(url, { username, password })
       .pipe(tap((response: SqlResponse) => {
         if (response.status && response.data.length === 1) {
