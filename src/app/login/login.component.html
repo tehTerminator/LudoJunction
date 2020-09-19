@@ -1,16 +1,15 @@
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-lg-6 col-md-8 col-sm-12 mr-auto">
-			<ul class="navbar-nav nav-tabs">
+	<div class="row justify-content-center">
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link" routerLink="signIn">Sign In</a>
+					<a class="nav-link" routerLink="signIn" routerLinkActive="active">Sign In</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" routerLink="signUp">Sign Up</a>
+					<a class="nav-link" routerLink="signUp" routerLinkActive="active">Sign Up</a>
 				</li>
 			</ul>
-			<hr>
-			<div class="card">
+			<div class="card" style="border-top: none;">
 				<div class="card-body">
 					<router-outlet></router-outlet>
 				</div>
