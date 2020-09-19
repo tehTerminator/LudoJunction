@@ -1,28 +1,30 @@
-export class User{
+import { HOUR } from './collection';
+
+export class User {
 
     constructor(
-		private _id: number,
+        private theId: number,
         public title: string,
         public username: string,
-        private _token: string,
+        private theToken: string,
         public generatedOn: number,
-		private _type: string
+        private theType: string
     ) { }
 
     get token(): string {
         const minTime = (new Date()).getTime() - HOUR;
-        if ( minTime <= this.generatedOn ){
-            return this._token;
+        if (minTime <= this.generatedOn) {
+            return this.theToken;
         } else {
             return null;
         }
     }
 
     get type(): string {
-	    return this._type.toUpperCase();
-	}
+        return this.theType.toUpperCase();
+    }
 
-	get id(): number{
-		return this._id;
-	}
+    get id(): number {
+        return this.theId;
+    }
 }

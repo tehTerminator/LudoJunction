@@ -4,9 +4,9 @@ export const HOUR = 3600000;
 export const ADMINISTRATOR = 'ADMINISTRATOR';
 export const PLAYER = 'PLAYER';
 
-export interface SqlResponse<T> {
+export interface SqlResponse {
     errors: Array<string>;
     log: Array<string>;
     status: boolean;
-    data: Array<T>
+    data: Array<any>;
 }
