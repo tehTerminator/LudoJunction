@@ -33,4 +33,5 @@ export interface GameRequest {
     postedOn: Date;
     result?: Result;
     screenshot?: string;
+    title?: string;
 }

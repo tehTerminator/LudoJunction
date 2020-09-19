@@ -1,1 +1,5 @@
-<p>all-game-list works!</p>
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let game of games">
+        {{ game.id }} - {{ game.title }} - {{ game.amount }}
+    </div>
+</div>
