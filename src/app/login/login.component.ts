@@ -11,20 +11,10 @@ import { User } from '../shared/user.model';
 })
 export class LoginComponent implements OnInit{
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-    // this.authService.user
-    // .pipe(take(1))
-    // .subscribe((user: User) => {
-    //   console.log(user);
-    //   if (!!user) {
-    //     console.log('User Logged In')
-    //     this.router.navigate(['/player']);
-    //   } else {
-    //     console.log('User Not Logged In');
-    //   }
-    // });
+
   }
 
 }
