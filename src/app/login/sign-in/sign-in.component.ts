@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './../../shared/auth.service';
-import { ADMINISTRATOR } from './../../shared/collection';
+import { ADMINISTRATOR, SqlResponse } from './../../shared/collection';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+	selector: 'app-sign-in',
+	templateUrl: './sign-in.component.html',
+	styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
 
@@ -19,33 +19,33 @@ export class SignInComponent implements OnInit {
 		private router: Router
 	) { }
 
-  ngOnInit(): void {
-			this.signInForm = this.fb.group({
-					username: ['', Validators.required],
-					password: ['', Validators.required]
-			});
-  }
+	ngOnInit(): void {
+		this.signInForm = this.fb.group({
+			username: ['', Validators.required],
+			password: ['', Validators.required]
+		});
+	}
 
 	onSubmit() {
-		if ( this.signInForm.invalid ) {
-			return;Î
+		if (this.signInForm.invalid) {
+			return;
 		}
 		const username = this.signInForm.get('username').value;
 		const password = this.signInForm.get('password').value;
 
 		this.authService.signIn(username, password)
-		.subscribe((res: SqlResponse<UserData>) => {
-			if ( res.status && res.data.length === 1 ) {
-				const userData = res.data[0];
-				if ( userData.type === ADMINSTRATOR ) {
-					// Goto Admin Dashboard
-					// this.router.nagivate(['/admin']);
-				} 
-				else {
-					// Goto Player Dashboard
-					// this.router.navigate(['/dashboard']);
-				}Î
-			}
-		});
+			.subscribe((res: SqlResponse) => {
+				if (res.status && res.data.length === 1) {
+					const userData = res.data[0];
+					if (userData.type === ADMINISTRATOR) {
+						// Goto Admin Dashboard
+						// this.router.nagivate(['/admin']);
+					}
+					else {
+						// Goto Player Dashboard
+						// this.router.navigate(['/dashboard']);
+					}
+				}
+			});
 	}
 }
