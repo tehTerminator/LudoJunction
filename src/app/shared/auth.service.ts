@@ -64,11 +64,19 @@ export class AuthService implements OnDestroy {
     this.signOutTimer = setTimeout(() => this.signOut(), signOutAfter);
   }
 
-  private signOut(): void {
+  signOut(): void {
     this.user.next(null);
     clearInterval(this.signOutTimer);
     localStorage.clear();
     this.router.navigate(['/login']);
+  }
+
+  signUp(title: string, email: string, password: string) {
+    const url = environment.url.user.signUp;
+    return this.http.post(url, { title, email, password })
+    .pipe(tap((res: SqlResponse) => {
+      console.log(res);
+    }));
   }
 
   private autoSignIn(): void {
@@ -76,14 +84,7 @@ export class AuthService implements OnDestroy {
     if (userData !== null) {
       this.handleAuthentication(userData);
     }
-  }
-
-  public signUp(title: string, email: string, password: string) {
-    const url = environment.url.user.signUp;
-    return this.http.post(url, { title, email, password })
-    .pipe(tap((res: SqlResponse) => {
-      console.log(res);
-    }));
+    this.router.navigate(['/player']);
   }
 
   ngOnDestroy() {

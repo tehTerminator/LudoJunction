@@ -35,8 +35,9 @@ export class SignInComponent implements OnInit {
 
 		this.authService.signIn(username, password)
 			.subscribe((res: SqlResponse) => {
-				if (res.status && res.data.length === 1) {
-					const userData = res.data[0];
+				console.log(res);
+				if (res.status) {
+					this.router.navigate(['/player']);
 				}
 			});
 	}

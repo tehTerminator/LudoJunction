@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="navbar-brand">
         {{ title }}
     </div>
@@ -9,27 +9,27 @@
           </svg>
       </button>
     <div class="navbar-collapse" [ngClass]="navbarCollapsed ? 'collapse' : ''">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a routerLink="login" class="nav-link">
-                    Login
-                </a>
-            </li>
-            <li class="nav-item">
-                <a routerLink="player" class="nav-link">
-                    Play
-                </a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="['player', 'dashboard']" class="nav-link">
-                    Dashboard
-                </a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="['player', 'transactions']" class="nav-link">
-                    Transactions
-                </a>
-            </li>
+        <ul class="navbar-nav" [hidden]="!isLoggedIn">
+                <li class="nav-item">
+                    <a routerLink="player" routerLinkActive="active" class="nav-link">
+                        Play
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLink]="['player', 'dashboard']" routerLinkActive="active" class="nav-link">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLink]="['player', 'transactions']" routerLinkActive="active" class="nav-link">
+                        Transactions
+                    </a>
+                </li>
         </ul>
+        <div class="navbar-nav ml-auto" [hidden]="!isLoggedIn">
+            <div class="nav-item">
+                <button class="btn btn-outline-danger w-100" (click)="onLogout()">Logout</button>
+            </div>
+        </div>
     </div>  
 </nav>

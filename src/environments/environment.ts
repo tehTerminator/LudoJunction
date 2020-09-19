@@ -10,6 +10,7 @@ export const environment = {
       signUp: 'http://localhost:80/ludoJunction/api/user.signUp.php',
       activate: 'http://localhost:80/ludoJunction/api/user.activate.php'
     },
+    games: 'http://localhost:80/ludoJunction/api/games.php'
   }
 };
 
