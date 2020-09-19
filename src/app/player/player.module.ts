@@ -9,13 +9,15 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { CreateGameComponent } from './create-game/create-game.component';
 import { MyGameListComponent } from './my-game-list/my-game-list.component';
 import { AllGameListComponent } from './all-game-list/all-game-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [PlayerComponent, DashboardComponent, ResultComponent, TransactionsComponent, CreateGameComponent, MyGameListComponent, AllGameListComponent],
   imports: [
     CommonModule,
-    PlayerRoutingModule
+    PlayerRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class PlayerModule { }

@@ -15,10 +15,12 @@ export enum UserType {
 };
 
 export interface SqlResponse {
+    status: boolean;
     errors: Array<string>;
     message: Array<string>;
-    status: boolean;
     data: Array<any>;
+    token: string;
+    lastInsertId: number;
 }
 
 export interface GameRequest {

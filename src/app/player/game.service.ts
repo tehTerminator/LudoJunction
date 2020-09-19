@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { GameRequest, MINUTE, SqlResponse } from '../shared/collection';
+import { GameRequest, MINUTE, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
 import { User } from '../shared/user.model';
@@ -21,9 +21,30 @@ export class GameService implements OnDestroy {
   }
 
   onRefresh() {
-    this.http.get(environment.url.games)
+    this.http.get(environment.url.games.get)
     .subscribe((res: SqlResponse) => {
       this.gameRequest.next(res.data);
+    });
+  }
+
+  onAdd(amount: number) {
+    const url = environment.url.games.create
+    this.http.post(url, {amount})
+    .subscribe((res: SqlResponse) => {
+      if (res.status) {
+        const gameRequest: GameRequest = {
+          id: res.lastInsertId,
+          sender: this.user.id,
+          amount: amount,
+          state: State.PENDING,
+          postedOn: new Date()
+        }
+        const games = this.gameRequest.getValue();
+        games.push(gameRequest);
+        this.gameRequest.next(games);
+      } else {
+        console.log(res);
+      }
     });
   }
 

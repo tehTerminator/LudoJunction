@@ -1,1 +1,17 @@
-<p>create-game works!</p>
+<form class="card" [formGroup]="createGameForm" (ngSubmit)="onSubmit()">
+    <div class="card-body">
+        <h3 class="card-title">Create New Game</h3>
+        <div class="form-group">
+            <label for="amount">Enter Amount</label>
+            <select name="amount" class="form-control" formControlName="amount">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+    </div>
+</form>
