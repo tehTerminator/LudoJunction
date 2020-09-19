@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, generate } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/user.model';
-import { SqlResponse } from './collection';
+import { SqlResponse, UserType } from './collection';
 import { tap } from 'rxjs/operators';
 
 interface UserData {
@@ -49,6 +49,7 @@ export class AuthService implements OnDestroy {
       return;
     }
 
+
     localStorage.setItem('user', JSON.stringify(user));
     const currentUser = new User(
       user.id,
@@ -56,7 +57,7 @@ export class AuthService implements OnDestroy {
       user.username,
       user.token,
       generatedOn,
-      user.type
+      UserType[user.type]
     );
     this.user.next(currentUser);
     const signOutAfter = now - generatedOn;

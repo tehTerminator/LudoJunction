@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { GameRequest } from './../shared/collection';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayerComponent implements OnInit {
 
-  constructor() { }
+  gameRequests: Array<GameRequest> = [];
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
-
 }

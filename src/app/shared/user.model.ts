@@ -1,4 +1,4 @@
-import { HOUR } from './collection';
+import { HOUR, UserType } from './collection';
 
 export class User {
 
@@ -8,7 +8,7 @@ export class User {
         public username: string,
         private theToken: string,
         public generatedOn: number,
-        private theType: string
+        private theType: UserType
     ) { }
 
     get token(): string {
@@ -20,10 +20,10 @@ export class User {
         }
     }
 
-    get type(): string {
-        return this.theType.toUpperCase();
+    get type(): UserType {
+        return this.theType;
     }
-
+    
     get id(): number {
         return this.theId;
     }

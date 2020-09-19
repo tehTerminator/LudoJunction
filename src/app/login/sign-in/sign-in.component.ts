@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './../../shared/auth.service';
-import { ADMINISTRATOR, SqlResponse } from './../../shared/collection';
+import { SqlResponse } from './../../shared/collection';
 
 @Component({
 	selector: 'app-sign-in',
@@ -37,15 +37,6 @@ export class SignInComponent implements OnInit {
 			.subscribe((res: SqlResponse) => {
 				if (res.status && res.data.length === 1) {
 					const userData = res.data[0];
-
-					// if (userData.type === ADMINISTRATOR) {
-					// 	// Goto Admin Dashboard
-					// 	// this.router.nagivate(['/admin']);
-					// }
-					// else {
-					// 	// Goto Player Dashboard
-					// 	// this.router.navigate(['/dashboard']);
-					// }
 				}
 			});
 	}
