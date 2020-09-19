@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 import { SqlResponse } from '../../shared/collection';
 
@@ -13,7 +14,8 @@ export class SignUpComponent implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private authService: AuthService
+		private authService: AuthService,
+		private router: Router
 	) { }
 
 	ngOnInit(): void {
@@ -36,10 +38,10 @@ export class SignUpComponent implements OnInit {
 		this.authService.signUp(title, email, password)
 			.subscribe((res: SqlResponse) => {
 				if (res.status) {
-					// Goto Login Page
-					// this.router.navigate(['/login']);
+					this.router.navigate(['activate', res.data[0].id ]);
 				} else {
 					// Show Some Error Message
+					console.log('Unable to Process this time');
 				}
 			});
 	}

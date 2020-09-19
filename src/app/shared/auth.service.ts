@@ -79,7 +79,10 @@ export class AuthService implements OnDestroy {
 
   public signUp(title: string, email: string, password: string) {
     const url = environment.url.user.signUp;
-    return this.http.post(url, { title, email, password });
+    return this.http.post(url, { title, email, password })
+    .pipe(tap((res: SqlResponse) => {
+      console.log(res);
+    }));
   }
 
   ngOnDestroy() {

@@ -6,10 +6,11 @@ import { LoginComponent } from './login.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActivateUserComponent } from './activate-user/activate-user.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, SignInComponent, SignUpComponent],
+  declarations: [LoginComponent, SignInComponent, SignUpComponent, ActivateUserComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,
