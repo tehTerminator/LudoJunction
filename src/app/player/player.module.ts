@@ -10,10 +10,11 @@ import { CreateChallengeComponent } from './create-challenge/create-challenge.co
 import { ChallengeListComponent } from './challenge-list/challenge-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChallengeListItemComponent } from './challenge-list-item/challenge-list-item.component';
+import { MyChallengeListComponent } from './my-challenge-list/my-challenge-list.component';
 
 
 @NgModule({
-  declarations: [PlayerComponent, DashboardComponent, ResultComponent, TransactionsComponent, CreateChallengeComponent, ChallengeListComponent, ChallengeListItemComponent],
+  declarations: [PlayerComponent, DashboardComponent, ResultComponent, TransactionsComponent, CreateChallengeComponent, ChallengeListComponent, ChallengeListItemComponent, MyChallengeListComponent],
   imports: [
     CommonModule,
     PlayerRoutingModule,
