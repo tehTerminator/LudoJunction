@@ -1,19 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Challenge, MINUTE, Result, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
+import { Challenge, SECOND, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
+import { PlayerModule } from './player.module';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ChallengeService implements OnDestroy {
   challenges: BehaviorSubject<Challenge[]> = new BehaviorSubject([]);
   ticker = null;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.ticker = setTimeout(() => this.onRefresh(), MINUTE);
+    this.ticker = setInterval(() => this.onRefresh(), SECOND * 5);
     this.onRefresh();
   }
 
@@ -32,7 +31,7 @@ export class ChallengeService implements OnDestroy {
           postedOn: new Date(item.postedOn),
           stitle: item.stitle,
           rtitle: item.rtitle,
-          result: item.result === undefined ? Result.NULL : Result[item.result],
+          winner: +item.winner,
           screenshot: item.screenshot
         })
       });
@@ -54,7 +53,7 @@ export class ChallengeService implements OnDestroy {
           state: State.PENDING,
           postedOn: new Date(),
           stitle: this.authService.user.value.title,
-          result: null
+          winner: 0
         }
         const newGameRequest = [...this.challenges.value, gr]
         this.challenges.next(newGameRequest);
@@ -96,7 +95,24 @@ export class ChallengeService implements OnDestroy {
     return this.challenges.value.find(x=>x.id === id);
   }
 
+  onPostResult(challenge: Challenge, winner: number) {
+    const request = {
+      imageData: challenge.screenshot,
+      id: challenge.id,
+      sender: challenge.sender,
+      receiver: challenge.receiver,
+      amount: challenge.amount,
+      winner,
+    };
+    const url = environment.url.challenge.result;
+    this.http.post(url, request)
+    .subscribe((res: SqlResponse) => {
+      console.log(res);
+    })
+  }
+
   ngOnDestroy() {
     clearInterval(this.ticker);
+    console.log('Challenge SErvice Destroyed');
   }
 }
