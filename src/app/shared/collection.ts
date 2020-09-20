@@ -6,10 +6,6 @@ export enum State {
     PENDING, ACCEPTED, ACTIVE, COMPLETED, REJECTED
 };
 
-export enum Result {
-    WIN, LOSS, NULL
-};
-
 export enum UserType {
     ADMINISTRATOR, PLAYER
 };
@@ -48,7 +44,7 @@ export interface Challenge {
     room?: string;
     state: State;
     postedOn: Date;
-    result?: Result;
+    winner?: number;
     screenshot?: string;
     stitle?: string;
     rtitle?: string;
