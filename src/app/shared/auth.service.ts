@@ -49,10 +49,9 @@ export class AuthService implements OnDestroy {
       return;
     }
 
-
     localStorage.setItem('user', JSON.stringify(user));
     const currentUser = new User(
-      user.id,
+      +user.id,
       user.title,
       user.username,
       user.token,
@@ -80,7 +79,14 @@ export class AuthService implements OnDestroy {
   }
 
   get userId(): number {
-    return +this.user.getValue().id;
+    let id: number;
+    try {
+      id = this.user.value.id;
+    } catch(e) {
+      id = 0;
+    } finally{
+      return id;
+    }
   }
 
   private autoSignIn(): void {

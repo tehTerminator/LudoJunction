@@ -11,6 +11,7 @@ import { ChallengeListComponent } from './challenge-list/challenge-list.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChallengeListItemComponent } from './challenge-list-item/challenge-list-item.component';
 import { MyChallengeListComponent } from './my-challenge-list/my-challenge-list.component';
+import { ChallengeResultPageComponent } from './challenge-result-page/challenge-result-page.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MyChallengeListComponent } from './my-challenge-list/my-challenge-list.
     CreateChallengeComponent, 
     ChallengeListComponent, 
     ChallengeListItemComponent,
-    MyChallengeListComponent
+    MyChallengeListComponent,
+    ChallengeResultPageComponent
   ],
   imports: [
     CommonModule,

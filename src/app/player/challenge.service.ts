@@ -20,7 +20,6 @@ export class ChallengeService implements OnDestroy {
   onRefresh() {
     this.http.get(environment.url.challenge.get)
     .subscribe((res: SqlResponse) => {
-      console.log(res);
       const newList: Challenge[] = [];
       res.data.forEach((item: SqlObject) => {
         newList.push({
@@ -35,6 +34,7 @@ export class ChallengeService implements OnDestroy {
           rtitle: item.rtitle
         })
       });
+      console.log(newList);
       this.challenges.next(newList);
     });
   }
@@ -43,13 +43,15 @@ export class ChallengeService implements OnDestroy {
     const url = environment.url.challenge.create
     this.http.post(url, {amount})
     .subscribe((res: SqlResponse) => {
+      console.log(res);
       if (res.status) {
         const gr: Challenge = {
           id: res.lastInsertId,
           sender: this.authService.userId,
           amount: amount,
           state: State.PENDING,
-          postedOn: new Date()
+          postedOn: new Date(),
+          stitle: this.authService.user.value.title
         }
         const newGameRequest = [...this.challenges.value, gr]
         this.challenges.next(newGameRequest);
@@ -62,6 +64,21 @@ export class ChallengeService implements OnDestroy {
   onUpdate(req: SqlRequest) {
     this.http.post(environment.url.challenge.update, req)
     .subscribe((res: SqlResponse) => {
+      if (res.status) {
+        this.onRefresh();
+      }
+    });
+  }
+
+  /**
+   * @param id Challange Id
+   * @param amount Challenge Amount
+   */
+  onAccept(id: number, amount: number) {
+    const url = environment.url.challenge.accept;
+    this.http.post(url, {id, amount})
+    .subscribe((res: SqlResponse) => {
+      console.log(res);
       if (res.status) {
         this.onRefresh();
       }

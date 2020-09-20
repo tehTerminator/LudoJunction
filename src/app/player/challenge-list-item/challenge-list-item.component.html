@@ -1,34 +1,28 @@
 <div>
     <div class="text-center">
-        {{ challenge.stitle }} has issued a Challenge for 
+        {{ challenge.stitle }} has issued a Challenge for
         <strong>{{ challenge.amount }}</strong>
     </div>
-    
-    <button 
-        (click)="onAccept()"
-        class="btn btn-success d-block mt-3 w-100" 
-        *ngIf="showAcceptBtn()">
+
+    <button (click)="onAccept()" class="btn btn-success d-block mt-3 w-100" *ngIf="showAcceptBtn()">
         Accept
     </button>
 
+
     <div class="input-group mt-3" *ngIf="showRoomInput()">
-        <input type="text" class="form-control" placeholder="Room Code" [formControl]="roomCode">
+        <input [readOnly]="!isMine()" type="text" class="form-control" [formControl]="roomCode" placeholder="Enter Room Code">
         <div class="input-group-append">
-            <button 
-                (click)="onSaveRoom()"
-                class="btn btn-outline-secondary" 
-                type="button">
+            <button (click)="onSaveRoom()" class="btn btn-outline-secondary" type="button" [disabled]="!isMine()">
                 Save Room
             </button>
         </div>
     </div>
 
-    <div class="text-center bg-dark text-light d-block w-100" *ngIf="isActive()">
-        Accepted By - {{ challenge.rtitle }} <br>
-        Room Code - <strong class="text-uppercase">{{ challenge.room }}</strong>
+    <div class="text-center bg-dark text-light d-block w-100 rounded" *ngIf="isActive()">
+        Accepted By - {{ challenge.rtitle }} <br> Room Code - <strong class="text-uppercase">{{ challenge.room }}</strong>
     </div>
 
-    <button class="btn btn-success d-block mt-3 w-100" *ngIf="isActive()">
+    <button class="btn btn-success d-block mt-2 w-100" *ngIf="isActive()">
         Share Result
     </button>
 

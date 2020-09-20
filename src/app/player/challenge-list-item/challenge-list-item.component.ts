@@ -34,9 +34,9 @@ export class ChallengeListItemComponent implements OnInit {
   }
 
   showRoomInput() {
-    return this.challenge.state === State.ACCEPTED;
+    return (this.challenge.state === State.ACCEPTED);
   }
-
+  
   isActive() {
     return this.challenge.state === State.ACTIVE;
   }
@@ -48,10 +48,5 @@ export class ChallengeListItemComponent implements OnInit {
     });
   }
 
-  onAccept() {
-    this.cs.onUpdate({
-      andWhere: {id: this.challenge.id},
-      userData: {state: State[State.ACCEPTED], receiver: this.as.userId}
-    });
-  }
+  onAccept = () => this.cs.onAccept(this.challenge.id, this.challenge.amount);
 }

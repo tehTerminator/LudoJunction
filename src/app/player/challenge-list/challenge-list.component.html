@@ -1,7 +1,16 @@
 <div class="d-lg-none mt-3"></div>
-<h3>Available Challenges</h3>
-<div class="list-group">
-    <div class="list-group-item d-flex justify-content-between" *ngFor="let challenge of challenges">
-        <app-challenge-list-item [challenge]="challenge"></app-challenge-list-item>
+<div *ngIf="challenges.length > 0; else noChallenge;">
+    <h3>Available Challenges</h3>
+    <div class="list-group">
+        <div class="list-group-item" *ngFor="let challenge of challenges">
+            <app-challenge-list-item [challenge]="challenge"></app-challenge-list-item>
+        </div>
     </div>
 </div>
+<ng-template #noChallenge>
+    <div class="card">
+        <div class="card-body">
+            Sorry No Challenge Are Currently Available.
+        </div>
+    </div>
+</ng-template>
