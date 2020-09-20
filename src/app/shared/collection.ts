@@ -7,7 +7,7 @@ export enum State {
 };
 
 export enum Result {
-    WIN, LOSS
+    WIN, LOSS, NULL
 };
 
 export enum UserType {

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Challenge, MINUTE, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
+import { Challenge, MINUTE, Result, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
 
@@ -31,7 +31,9 @@ export class ChallengeService implements OnDestroy {
           state: State[item.state],
           postedOn: new Date(item.postedOn),
           stitle: item.stitle,
-          rtitle: item.rtitle
+          rtitle: item.rtitle,
+          result: item.result === undefined ? Result.NULL : Result[item.result],
+          screenshot: item.screenshot
         })
       });
       console.log(newList);
@@ -51,7 +53,8 @@ export class ChallengeService implements OnDestroy {
           amount: amount,
           state: State.PENDING,
           postedOn: new Date(),
-          stitle: this.authService.user.value.title
+          stitle: this.authService.user.value.title,
+          result: null
         }
         const newGameRequest = [...this.challenges.value, gr]
         this.challenges.next(newGameRequest);
@@ -83,6 +86,14 @@ export class ChallengeService implements OnDestroy {
         this.onRefresh();
       }
     });
+  }
+
+  /**
+   * 
+   * @param id Challenge Id
+   */
+  get(id: number): Challenge {
+    return this.challenges.value.find(x=>x.id === id);
   }
 
   ngOnDestroy() {
