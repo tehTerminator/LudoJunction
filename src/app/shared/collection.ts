@@ -3,7 +3,7 @@ export const MINUTE = 60000;
 export const HOUR = 3600000;
 
 export enum State {
-    PENDING, ACTIVE, COMPLETED, REJECTED
+    PENDING, ACCEPTED, ACTIVE, COMPLETED, REJECTED
 };
 
 export enum Result {
@@ -23,7 +23,7 @@ export interface SqlResponse {
     lastInsertId: number;
 }
 
-export interface GameRequest {
+export interface Challenge {
     id: number;
     sender: number;
     receiver?: number;

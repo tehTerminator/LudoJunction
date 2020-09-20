@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { GameRequest } from './../shared/collection';
-import { GameService } from './game.service';
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',

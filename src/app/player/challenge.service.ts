@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { GameRequest, MINUTE, SqlResponse, State } from '../shared/collection';
+import { Challenge, MINUTE, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GameService implements OnDestroy {
-  games: BehaviorSubject<GameRequest[]> = new BehaviorSubject([]);
+export class ChallengeService implements OnDestroy {
+  challenges: BehaviorSubject<Challenge[]> = new BehaviorSubject([]);
   ticker = null;
 
   constructor(private http: HttpClient, private authService: AuthService) {
@@ -19,27 +18,27 @@ export class GameService implements OnDestroy {
   }
 
   onRefresh() {
-    this.http.get(environment.url.games.get)
+    this.http.get(environment.url.challenge.get)
     .subscribe((res: SqlResponse) => {
       console.log(res);
-      this.games.next(res.data);
+      this.challenges.next(res.data);
     });
   }
 
   onAdd(amount: number) {
-    const url = environment.url.games.create
+    const url = environment.url.challenge.create
     this.http.post(url, {amount})
     .subscribe((res: SqlResponse) => {
       if (res.status) {
-        const gr: GameRequest = {
+        const gr: Challenge = {
           id: res.lastInsertId,
           sender: this.authService.userId,
           amount: amount,
           state: State.PENDING,
           postedOn: new Date()
         }
-        const newGameRequest = [...this.games.value, gr]
-        this.games.next(newGameRequest);
+        const newGameRequest = [...this.challenges.value, gr]
+        this.challenges.next(newGameRequest);
       } else {
         console.log(res);
       }

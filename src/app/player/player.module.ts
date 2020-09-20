@@ -6,14 +6,14 @@ import { PlayerComponent } from './player.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ResultComponent } from './result/result.component';
 import { TransactionsComponent } from './transactions/transactions.component';
-import { CreateGameComponent } from './create-game/create-game.component';
-import { AllGameListComponent } from './all-game-list/all-game-list.component';
+import { CreateChallengeComponent } from './create-challenge/create-challenge.component';
+import { ChallengeListComponent } from './challenge-list/challenge-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { GameListItemComponent } from './game-list-item/game-list-item.component';
+import { ChallengeListItemComponent } from './challenge-list-item/challenge-list-item.component';
 
 
 @NgModule({
-  declarations: [PlayerComponent, DashboardComponent, ResultComponent, TransactionsComponent, CreateGameComponent, AllGameListComponent, GameListItemComponent],
+  declarations: [PlayerComponent, DashboardComponent, ResultComponent, TransactionsComponent, CreateChallengeComponent, ChallengeListComponent, ChallengeListItemComponent],
   imports: [
     CommonModule,
     PlayerRoutingModule,

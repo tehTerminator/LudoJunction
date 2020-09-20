@@ -1,0 +1,10 @@
+<div class="list-group">
+    <div class="list-group-item d-flex justify-content-between" *ngFor="let challenge of challenges">
+        <span>
+            {{ challenge.title }} has set a Challenge for <strong>{{ challenge.amount }}</strong>
+        </span>
+        <button class="btn btn-outline-success">
+            Accept
+        </button>
+    </div>
+</div>
