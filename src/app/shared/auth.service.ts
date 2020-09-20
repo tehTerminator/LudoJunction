@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, generate } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/user.model';
-import { SqlResponse, UserType } from './collection';
+import { HOUR, SqlResponse, UserType } from './collection';
 import { tap } from 'rxjs/operators';
 
 interface UserData {
@@ -59,11 +59,13 @@ export class AuthService implements OnDestroy {
       UserType[user.type]
     );
     this.user.next(currentUser);
-    const signOutAfter = now - generatedOn;
+    const signOutAfter = HOUR - now + generatedOn;
+    clearTimeout(this.signOutTimer);
     this.signOutTimer = setTimeout(() => this.signOut(), signOutAfter);
   }
 
   signOut(): void {
+    console.log('Signing Out');
     this.user.next(null);
     clearInterval(this.signOutTimer);
     localStorage.clear();
@@ -98,7 +100,7 @@ export class AuthService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    clearInterval(this.signOutTimer);
+    clearTimeout(this.signOutTimer);
   }
 
 }
