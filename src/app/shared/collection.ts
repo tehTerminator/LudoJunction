@@ -14,6 +14,10 @@ export enum UserType {
     ADMINISTRATOR, PLAYER
 };
 
+export interface SqlObject{
+    [key: string]: string
+}
+
 export interface SqlResponse {
     status: boolean;
     errors: Array<string>;
@@ -22,6 +26,19 @@ export interface SqlResponse {
     token: string;
     lastInsertId: number;
 }
+
+export interface SqlRequest {
+    columns?: Array<string>;
+    andWhere?: { [key: string]: any };
+    orWhere?: { [key: string]: any };
+    orderBy?: string;
+    limit?: string;
+    join?: string;
+    groupBy?: string;
+    leftJoin?: string;
+    rightJoin?: string;
+    userData?: { [key: string]: string | number | boolean };
+  }
 
 export interface Challenge {
     id: number;
@@ -33,9 +50,7 @@ export interface Challenge {
     postedOn: Date;
     result?: Result;
     screenshot?: string;
-    title?: string;
+    stitle?: string;
+    rtitle?: string;
 }
 
-export interface SqlObject{
-    [key: string]: string
-}

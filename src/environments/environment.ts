@@ -12,7 +12,8 @@ export const environment = {
     },
     challenge: {
       get: 'http://localhost:80/ludoJunction/api/challenge.get.php',
-      create: 'http://localhost:80/ludoJunction/api/challenge.create.php'
+      create: 'http://localhost:80/ludoJunction/api/challenge.create.php',
+      update: 'http://localhost:80/ludoJunction/api/challenge.update.php',
     }
   }
 };

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Challenge, MINUTE, SqlObject, SqlResponse, State } from '../shared/collection';
+import { Challenge, MINUTE, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
 
@@ -20,6 +20,7 @@ export class ChallengeService implements OnDestroy {
   onRefresh() {
     this.http.get(environment.url.challenge.get)
     .subscribe((res: SqlResponse) => {
+      console.log(res);
       const newList: Challenge[] = [];
       res.data.forEach((item: SqlObject) => {
         newList.push({
@@ -29,14 +30,16 @@ export class ChallengeService implements OnDestroy {
           amount: +item.amount,
           room: item.room,
           state: State[item.state],
-          postedOn: new Date(item.postedOn)
+          postedOn: new Date(item.postedOn),
+          stitle: item.stitle,
+          rtitle: item.rtitle
         })
       });
       this.challenges.next(newList);
     });
   }
 
-  onAdd(amount: number) {
+  onCreate(amount: number) {
     const url = environment.url.challenge.create
     this.http.post(url, {amount})
     .subscribe((res: SqlResponse) => {
@@ -52,6 +55,15 @@ export class ChallengeService implements OnDestroy {
         this.challenges.next(newGameRequest);
       } else {
         console.log(res);
+      }
+    });
+  }
+
+  onUpdate(req: SqlRequest) {
+    this.http.post(environment.url.challenge.update, req)
+    .subscribe((res: SqlResponse) => {
+      if (res.status) {
+        this.onRefresh();
       }
     });
   }

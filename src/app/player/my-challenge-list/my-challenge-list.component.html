@@ -1,9 +1,18 @@
 <div class="d-lg-none mt-3"></div>
-<h3>My Challenges</h3>
-<div class="list-group">
-    <app-challenge-list-item 
-        class="list-group-item"
-        *ngFor="let ch of challenges" 
-        [challenge]="ch">
-    </app-challenge-list-item>
+<div *ngIf="challenges.length > 0;else noChallenge;">
+    <h3>My Challenges</h3>
+    <div class="list-group" >
+        <app-challenge-list-item 
+            class="list-group-item"
+            *ngFor="let ch of challenges" 
+            [challenge]="ch">
+        </app-challenge-list-item>
+    </div>
 </div>
+<ng-template #noChallenge>
+    <div class="card">
+        <div class="card-body">
+            You Have Not Issued Any Challenge.
+        </div>
+    </div>
+</ng-template>

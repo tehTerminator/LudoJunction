@@ -14,7 +14,16 @@ import { MyChallengeListComponent } from './my-challenge-list/my-challenge-list.
 
 
 @NgModule({
-  declarations: [PlayerComponent, DashboardComponent, ResultComponent, TransactionsComponent, CreateChallengeComponent, ChallengeListComponent, ChallengeListItemComponent, MyChallengeListComponent],
+  declarations: [
+    PlayerComponent,
+    DashboardComponent, 
+    ResultComponent, 
+    TransactionsComponent, 
+    CreateChallengeComponent, 
+    ChallengeListComponent, 
+    ChallengeListItemComponent,
+    MyChallengeListComponent
+  ],
   imports: [
     CommonModule,
     PlayerRoutingModule,

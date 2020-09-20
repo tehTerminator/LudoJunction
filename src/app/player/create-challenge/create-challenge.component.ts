@@ -20,6 +20,6 @@ export class CreateChallengeComponent implements OnInit {
 
   onSubmit() {
     const amount = +this.createGameForm.get('amount').value;
-    this.challengeService.onAdd(amount);
+    this.challengeService.onCreate(amount);
   }
 }
