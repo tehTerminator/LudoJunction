@@ -21,7 +21,7 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.challengeService.challenges
-    .pipe(map(x => x.filter(c => ( (+c.sender) - this.as.userId !== 0 ))))
+    .pipe(map(x => x.filter(c => c.sender !== this.as.userId)))
     .subscribe({
       next: (challenges: Challenge[]) => this.challenges = challenges
     });

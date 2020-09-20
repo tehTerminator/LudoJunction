@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Challenge, MINUTE, SqlResponse, State } from '../shared/collection';
+import { Challenge, MINUTE, SqlObject, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
 
@@ -20,8 +20,19 @@ export class ChallengeService implements OnDestroy {
   onRefresh() {
     this.http.get(environment.url.challenge.get)
     .subscribe((res: SqlResponse) => {
-      console.log(res);
-      this.challenges.next(res.data);
+      const newList: Challenge[] = [];
+      res.data.forEach((item: SqlObject) => {
+        newList.push({
+          id: +item.id,
+          sender: +item.sender,
+          receiver: +item.receiver,
+          amount: +item.amount,
+          room: item.room,
+          state: State[item.state],
+          postedOn: new Date(item.postedOn)
+        })
+      });
+      this.challenges.next(newList);
     });
   }
 

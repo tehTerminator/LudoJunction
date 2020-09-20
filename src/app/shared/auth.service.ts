@@ -80,7 +80,7 @@ export class AuthService implements OnDestroy {
   }
 
   get userId(): number {
-    return this.user.getValue().id;
+    return +this.user.getValue().id;
   }
 
   private autoSignIn(): void {

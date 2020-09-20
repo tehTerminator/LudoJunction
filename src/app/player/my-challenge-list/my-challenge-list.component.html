@@ -1,7 +1,9 @@
 <div class="d-lg-none mt-3"></div>
 <h3>My Challenges</h3>
 <div class="list-group">
-    <div class="list-group-item" *ngFor="let ch of challenges">
-        {{ ch.title }}
-    </div>
+    <app-challenge-list-item 
+        class="list-group-item"
+        *ngFor="let ch of challenges" 
+        [challenge]="ch">
+    </app-challenge-list-item>
 </div>
