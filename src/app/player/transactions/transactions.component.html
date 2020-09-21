@@ -1,1 +1,30 @@
-<p>transactions works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-compact">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tr of transactions">
+                                <td>{{ tr.id }}</td>
+                                <td>{{ tr.postedOn | date:'dd-MMM hh:mm a' }}</td>
+                                <td>{{ tr.description }}</td>
+                                <td>{{ tr.amount }}</td>
+                                <td>{{ tr.balance }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
