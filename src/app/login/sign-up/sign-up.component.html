@@ -1,23 +1,32 @@
 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-	<h2>Register Yourself</h2>
-	<hr>
-	<div class="form-group">
-		<label>Full Name</label>
-		<input type="text" name="title" class="form-control" formControlName="title" />
+    <h2>Register Yourself</h2>
+    <hr>
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="title" class="form-control" formControlName="title" />
 
-	</div>
+    </div>
 
-	<div class="form-group">
-		<label>Email</label>
-		<input type="email" name="email" class="form-control" formControlName="email" />
-	</div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" formControlName="email" />
+    </div>
 
-	<div class="form-group">
-		<label>Password</label>
-		<input type="password" name="password" class="form-control" formControlName="password" />
-	</div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" formControlName="password" />
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" name="agree" class="form-check-input" formControlName="agree">
+        <label for="agree" class="form-check-label text-justify">
+			I Agree that I am 18 years or older and not a resident of Telangana, Assam, Orissa, Kerala, Sikkim or Nagaland.
+		</label>
+    </div>
 
 
-	<button class="btn btn-primary mr-1" type="submit">Submit</button>
-	<button class="btn btn-danger" type="reset">Reset</button>
+    <div class="mt-2">
+        <button class="btn btn-primary mr-1" type="submit" [disabled]="signUpForm.invalid">Submit</button>
+        <button class="btn btn-danger" type="reset">Reset</button>
+    </div>
 </form>

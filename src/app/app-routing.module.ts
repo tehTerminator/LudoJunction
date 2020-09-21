@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared/auth.guard';
+import { TermsPageComponent } from './terms-page/terms-page.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,10 @@ const routes: Routes = [
     loadChildren: () => import('./player/player.module').then(m => m.PlayerModule),
     canActivate: [AuthGuard] 
   }, 
+  {
+    path: 'terms',
+    component: TermsPageComponent
+  },
   { path: '**', redirectTo: '/login/signIn', pathMatch: 'full'}];
 
 @NgModule({
