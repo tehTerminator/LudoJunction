@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../shared/auth.service';
-import { Challenge } from '../../shared/collection';
+import { Challenge, State } from '../../shared/collection';
 import { ChallengeService } from '../challenge.service';
 
 @Component({
@@ -21,7 +21,10 @@ export class ChallengeListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.challengeService.challenges
-    .pipe(map(x => x.filter(c => c.sender !== this.as.userId)))
+    .pipe(map(x => x.filter(
+      c => c.state === State.PENDING
+      )
+    ))
     .subscribe({
       next: (challenges: Challenge[]) => this.challenges = challenges
     });
