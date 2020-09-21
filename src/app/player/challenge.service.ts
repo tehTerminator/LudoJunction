@@ -11,9 +11,19 @@ export class ChallengeService implements OnDestroy {
   challenges: BehaviorSubject<Challenge[]> = new BehaviorSubject([]);
   ticker = null;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(
+    private http: HttpClient, 
+    private authService: AuthService) {
+
+  }
+
+  start() {
     this.ticker = setInterval(() => this.onRefresh(), SECOND * 30);
     this.onRefresh();
+  }
+
+  stop() {
+    clearInterval(this.ticker);
   }
 
   onRefresh() {
@@ -83,6 +93,9 @@ export class ChallengeService implements OnDestroy {
       console.log(res);
       if (res.status) {
         this.onRefresh();
+      } else {
+        console.log(res);
+        // Show Some Error to Player
       }
     });
   }
@@ -107,6 +120,5 @@ export class ChallengeService implements OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this.ticker);
-    console.log('Challenge SErvice Destroyed');
   }
 }
