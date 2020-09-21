@@ -1,13 +1,9 @@
 <div class="container">
     <div class="row">
-        <div class="col">
-            <div class="card text-center" *ngIf="!!challenge">
-                <div class="card-body">
-                    <h4 class="card-title">
-                        {{ challenge.stitle }} vs {{ challenge.rtitle }}
-                    </h4>
-                </div>
-            </div>
+        <div class="col" *ngIf="!!challenge">
+            <h4 class="card-title">
+                {{ challenge.stitle }} vs {{ challenge.rtitle }}
+            </h4>
         </div>
     </div>
 
@@ -34,24 +30,11 @@
     </div>
     <div class="row mt-1">
         <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div *ngIf="challenge.winner === 0; else resultPosted;">
-                        <div class="form-group">
-                            <label for="result">Match Result</label>
-                            <select name="result" id="" class="form-control">
-                                <option value="WIN">WIN</option>
-                                <option value="LOSS">LOSS</option>
-                            </select>
-                        </div>
-                        <button class="btn btn-primary w-100" (click)="onSubmit()">Submit Result</button>
-                    </div>
-                    <ng-template #resultPosted>
-                        Result is Already Posted
-                        <br> {{ challenge.stitle }} - {{ challenge.winner === challenge.sender ? 'WON' : 'LOST' }} {{ challenge.winner }}
-                    </ng-template>
-                </div>
-            </div>
+            <button class="btn btn-primary w-100" (click)="onSubmit()">Claim Victory</button>
+            <ng-template #resultPosted>
+                Result is Already Posted
+                <br> {{ challenge.stitle }} - {{ challenge.winner === challenge.sender ? 'WON' : 'LOST' }} {{ challenge.winner }}
+            </ng-template>
         </div>
     </div>
 </div>

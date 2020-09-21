@@ -12,7 +12,7 @@ export class ChallengeService implements OnDestroy {
   ticker = null;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.ticker = setInterval(() => this.onRefresh(), SECOND * 5);
+    this.ticker = setInterval(() => this.onRefresh(), SECOND * 30);
     this.onRefresh();
   }
 
@@ -95,20 +95,14 @@ export class ChallengeService implements OnDestroy {
     return this.challenges.value.find(x=>x.id === id);
   }
 
-  onPostResult(challenge: Challenge, winner: number) {
+  onPostResult(challenge: Challenge) {
     const request = {
       imageData: challenge.screenshot,
       id: challenge.id,
-      sender: challenge.sender,
-      receiver: challenge.receiver,
       amount: challenge.amount,
-      winner,
     };
     const url = environment.url.challenge.result;
-    this.http.post(url, request)
-    .subscribe((res: SqlResponse) => {
-      console.log(res);
-    })
+    return this.http.post(url, request);
   }
 
   ngOnDestroy() {

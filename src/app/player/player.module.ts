@@ -5,7 +5,6 @@ import { PlayerRoutingModule } from './player-routing.module';
 import { PlayerComponent } from './player.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ResultComponent } from './result/result.component';
-import { TransactionsComponent } from './transactions/transactions.component';
 import { CreateChallengeComponent } from './create-challenge/create-challenge.component';
 import { ChallengeListComponent } from './challenge-list/challenge-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +19,6 @@ import { ChallengeService } from './challenge.service';
     PlayerComponent,
     DashboardComponent, 
     ResultComponent, 
-    TransactionsComponent, 
     CreateChallengeComponent, 
     ChallengeListComponent, 
     ChallengeListItemComponent,
