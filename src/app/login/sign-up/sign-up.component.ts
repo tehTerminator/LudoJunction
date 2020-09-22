@@ -63,11 +63,12 @@ export class SignUpComponent implements OnInit {
 			return;
 		}
 
-		const title = this.signUpForm.get('title').value;
-		const email = this.signUpForm.get('email').value;
-		const password = this.signUpForm.get('password').value;
+		const title = this.title.value;
+		const email = this.email.value;
+		const password = this.password.value;
+		const mobile = this.mobile.value;
 
-		this.authService.signUp(title, email, password)
+		this.authService.signUp(title, email, mobile, password)
 			.subscribe((res: SqlResponse) => {
 				if (res.status) {
 					this.router.navigate(['/login', 'activate', res.data[0].id]);

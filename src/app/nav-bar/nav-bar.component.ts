@@ -9,7 +9,7 @@ import { User } from '../shared/user.model';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit, OnDestroy {
-  title = 'Ludo App';
+  title = 'Ludo Junction';
   navbarCollapsed = true;
   user: User;
   userSubscription: Subscription;
