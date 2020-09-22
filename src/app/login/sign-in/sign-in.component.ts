@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from './../../shared/auth.service';
 import { SqlResponse } from './../../shared/collection';
@@ -16,7 +17,8 @@ export class SignInComponent implements OnInit {
 	constructor(
 		private fb: FormBuilder,
 		private authService: AuthService,
-		private router: Router
+		private router: Router,
+		private snackBar: MatSnackBar
 	) { }
 
 	ngOnInit(): void {
@@ -47,9 +49,10 @@ export class SignInComponent implements OnInit {
 
 		this.authService.signIn(username, password)
 			.subscribe((res: SqlResponse) => {
-				console.log(res);
 				if (res.status) {
 					this.router.navigate(['/player']);
+				}  else {
+					this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000})
 				}
 			});
 	}

@@ -7,6 +7,7 @@ import { User } from '../shared/user.model';
 import { HOUR, SqlResponse, UserType } from './collection';
 import { tap } from 'rxjs/operators';
 import { FormControl, ValidationErrors } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface UserData {
   id: number;
@@ -38,7 +39,7 @@ export class AuthService implements OnDestroy {
         if (response.status && response.data.length === 1) {
           const userData = response.data[0];
           this.handleAuthentication(userData);
-        }
+        } 
       }));
   }
 
@@ -66,7 +67,6 @@ export class AuthService implements OnDestroy {
   }
 
   signOut(): void {
-    console.log('Signing Out');
     this.user.next(null);
     clearInterval(this.signOutTimer);
     localStorage.clear();

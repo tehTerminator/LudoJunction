@@ -7,6 +7,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivateUserComponent } from './activate-user/activate-user.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { ActivateUserComponent } from './activate-user/activate-user.component';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatSnackBarModule
+  ],
 })
 export class LoginModule { }
