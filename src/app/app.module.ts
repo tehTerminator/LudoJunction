@@ -8,6 +8,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { TermsPageComponent } from './terms-page/terms-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true

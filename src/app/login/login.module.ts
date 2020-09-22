@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActivateUserComponent } from './activate-user/activate-user.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     LoginRoutingModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
 })
 export class LoginModule { }
