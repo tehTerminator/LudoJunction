@@ -4,12 +4,25 @@
     <div class="form-group">
         <label>Mobile Number</label>
         <input class="form-control" formControlName="username" name="username" />
+        <div class="form-text" *ngIf="!username.valid && username.touched">
+            <small class="text-danger" *ngIf="username.errors && username.errors.required">
+                Please Enter Mobile Number.
+            </small>
+            <small class="text-danger" *ngIf="username.errors && username.errors.pattern">
+                Invalid Mobile Number.
+            </small>
+        </div>
     </div>
     <div class="form-group">
         <label>Password</label>
         <input class="form-control" formControlName="password" name="password" type="password" />
+        <div class="form-text" *ngIf="!password.valid && password.touched">
+            <small class="text-danger">
+                Please Enter Password.
+            </small>
+        </div>
     </div>
 
-    <button type="submit" class="btn btn-primary mr-1">Submit</button>
+    <button type="submit" class="btn btn-primary mr-1" [disabled]="signInForm.invalid">Submit</button>
     <button type="reset" class="btn btn-danger">Reset</button>
 </form>

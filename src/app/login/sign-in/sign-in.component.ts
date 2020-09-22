@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './../../shared/auth.service';
 import { SqlResponse } from './../../shared/collection';
@@ -21,9 +21,21 @@ export class SignInComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.signInForm = this.fb.group({
-			username: ['', Validators.required],
+			username: ['', [
+				Validators.required, 
+				Validators.pattern("^[6-9][0-9]{9}$")
+				]
+			],
 			password: ['', Validators.required]
 		});
+	}
+
+	get username(): FormControl {
+		return this.signInForm.get('username') as FormControl;
+	}
+
+	get password(): FormControl {
+		return this.signInForm.get('password') as FormControl;
 	}
 
 	onSubmit() {
