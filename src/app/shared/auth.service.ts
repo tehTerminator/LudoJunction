@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, generate } from 'rxjs';
+import { BehaviorSubject, generate, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/user.model';
 import { HOUR, SqlResponse, UserType } from './collection';
 import { tap } from 'rxjs/operators';
+import { FormControl, ValidationErrors } from '@angular/forms';
 
 interface UserData {
   id: number;
@@ -72,9 +73,9 @@ export class AuthService implements OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  signUp(title: string, email: string, password: string) {
+  signUp(title: string, email: string, mobile: string, password: string) {
     const url = environment.url.user.signUp;
-    return this.http.post(url, { title, email, password })
+    return this.http.post(url, { title, email, mobile, password })
     .pipe(tap((res: SqlResponse) => {
       console.log(res);
     }));
