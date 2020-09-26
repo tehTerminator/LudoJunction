@@ -1,9 +1,9 @@
 <?php
 
-    include 'config.php';
     include 'definitions.php';
+    include 'config.php';
 
-    $username = $request['username'];
+    $username = $request['email'];
     $password = $request['password'];
     $title = $request['title'];
 
@@ -19,15 +19,20 @@
     ];
     $qb->insert($req);
     $qb->execute($req);
-
-    $qb2 = new QueryBuilder($connection, 'user_request');
     $otp = bin2hex( random_bytes(4) );
     $user_id = $qb->output['lastInsertId'];
-    $qb2->insert([
-        'userData' => ['id' => $user_id, 'otp' => $otp]
-    ]);
+    $req2 = [
+        'userData' => [
+            'id' => $user_id,
+            'otp' => $otp
+        ]
+        ];
+
+    $qb2 = new QueryBuilder($connection, 'user_request');
+    $qb2->insert($req2);
+    $qb2->execute($req2);
 
     $response->addMessage('User Created Successfully')
     ->setSuccess()
-    ->setData(['id' => $user_id])
+    ->setData([['id' => $user_id, 'otp' => $otp]])
     ->send();

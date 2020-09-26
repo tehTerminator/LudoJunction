@@ -1,4 +1,7 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Content-Type, Content-Range, Content-Disposition, Content-Description, Authorization');
+
 class Response{
     private $status;
     private $errors;
@@ -60,8 +63,8 @@ class Response{
         die( json_encode([
             'status' => $this->status,
             'errors' => $this->errors,
-            'data' => $this->data,
             'message' => $this->message,
+            'data' => $this->data,
             'token' => $this->token,
             'lastInsertId' => $this->lastInsertId
         ]));
@@ -85,7 +88,9 @@ class User {
     public $generatedOn;
     public $token;
     public $isAdmin;
+    public $balance;
     private $loggedIn;
+    public $query;
 
     function __construct() {
         $this->id = 0;
@@ -94,9 +99,13 @@ class User {
         $this->generatedOn = NULL;
         $this->token = NULL;
         $this->isAdmin = false;
+        $this->balance = 0;
         $this->loggedIn = false;
     }
     
+    /**
+     * @param str $password
+     */
     function setPassword($password) {
         $this->password = hash_hmac("sha256", $password, 'Hmvi8lvHWrUCFp15p1XduJg9mgfGoDOI');
         return $this;
@@ -110,13 +119,18 @@ class User {
         return $this->loggedIn;
     }
 
-    function login($connection, $username, $password) {
-        $this->username = $username;
+    /**
+     * @param PDO $connection
+     * @param str $email
+     * @param str $password
+     */
+    function login($connection, $email, $password) {
+        $this->username = $email;
         $this->setPassword($password);
 
         $params = [
             "andWhere" => [
-                "username" => $this->username,
+                "mobile" => $this->username,
                 "password" => $this->password
             ]
         ];
@@ -142,6 +156,7 @@ class User {
             $this->isAdmin = $users[0]["isAdmin"];
             $this->loggedIn = true;
             $this->title = $users[0]["title"];
+            $this->balance = $users[0]["balance"];
             return true;    // Login Successfull
         }
 
@@ -153,12 +168,12 @@ class User {
         $token = "'" . $token . "'";
         $query = <<<SQL
         SELECT 
-            id, title, username, generatedOn, isAdmin
+            id, title, email, generatedOn, isAdmin, balance
         FROM
             users
         WHERE
             token = $token AND 
-            TIMESTAMPDIFF(SECOND, NOW(), generatedOn) < 300
+            TIMESTAMPDIFF(SECOND, NOW(), generatedOn) < 3600
 SQL;
         $this->query = $query;
         $stmt = $connection->prepare($query);
@@ -172,6 +187,7 @@ SQL;
             $this->loggedIn = true;
             $this->token = $token;
             $this->isAdmin = $user["isAdmin"];
+            $this->balance = $user["balance"];
             return true;
         }
         return false;
@@ -198,6 +214,7 @@ SQL;
             "token" => $this->token,
             "generatedOn" => $this->generatedOn,
             "isAdmin" => $this->isAdmin,
+            "balance" => $this->balance
         ];
     }
 }
