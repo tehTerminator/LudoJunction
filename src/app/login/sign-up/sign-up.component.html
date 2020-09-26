@@ -1,64 +1,58 @@
 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
     <h2>Register Yourself</h2>
     <hr>
-    <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" name="title" class="form-control" formControlName="title" />
-        <div class="form-text" *ngIf="title.touched && !title.valid">
-            <small class="text-danger">Please Enter Your Full Name</small>
-        </div>
-    </div>
+    <section>
+        <mat-form-field class="d-block mt-3">
+            <mat-label>Full Name</mat-label>
+            <input matInput type="text" name="title" formControlName="title" />
+            <mat-error *ngIf="title.touched && !title.valid">
+                Please Enter Your Full Name
+            </mat-error>
+        </mat-form-field>
 
-    <div class="form-group">
-        <label>Mobile</label>
-        <input type="tel" name="mobile" class="form-control" formControlName="mobile" />
-        <div class="form-text" *ngIf="!mobile.valid && mobile.touched">
-            <small class="text-danger" *ngIf="mobile.errors && mobile.errors.required">
-                Please Provide Mobile Number.
-            </small>
-            <small class="text-danger" *ngIf="mobile.errors && (mobile.errors.maxlength || mobile.errors.minlength)">
-                Mobile Number must be of 10 Digit.
-            </small>
-            <small class="text-danger" *ngIf="mobile.errors && mobile.errors.pattern">
-                Invalid Mobile Number
-            </small>
-        </div>
-    </div>
+        <mat-form-field class="d-block mt-3">
+            <mat-label>
+                Mobile
+            </mat-label>
+            <input matInput type="tel" name="mobile" formControlName="mobile" />
+            <mat-error *ngIf="mobile.errors && mobile.errors.required">Please Provide Mobile Number.</mat-error>
+            <mat-error *ngIf="mobile.errors && mobile.errors.pattern">Invalid Mobile Number</mat-error>
+        </mat-form-field>
 
-    <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" class="form-control" formControlName="email" />
-        <div class="form-text" *ngIf="!email.valid && email.touched">
-            <small class="text-danger" *ngIf="email.errors && email.errors.email">Please Enter Valid Email Address</small>
-            <small class="text-danger" *ngIf="email.errors && email.errors.emailIsNotAvailable">
-                Email Already Registered.
-            </small>
-            <small class="text-danger" *ngIf="email.errors && email.errors.required">
+        <mat-form-field class="d-block mt-3">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" name="email" formControlName="email" />
+            <mat-error *ngIf="email.errors && email.errors.email">Please Enter Valid Email Address</mat-error>
+            <mat-error *ngIf="email.errors && email.errors.emailIsNotAvailable">
+                Email Already Registered
+            </mat-error>
+            <mat-error *ngIf="email.errors && email.errors.required">
                 Please Enter Email Address
-            </small>
-        </div>
-    </div>
+            </mat-error>
+        </mat-form-field>
 
-    <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control" formControlName="password" />
-        <div class="form-text" *ngIf="!password.valid && password.touched">
-            <small class="text-danger">
+        <mat-form-field class="d-block mt-3">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" name="password" formControlName="password" />
+            <mat-error *ngIf="!password.valid && password.touched">
                 Please Enter Password
-            </small>
-        </div>
-    </div>
+            </mat-error>
+        </mat-form-field>
+    </section>
 
-    <div class="form-check">
+    <div class="form-check mt-3">
         <input type="checkbox" name="agree" class="form-check-input" formControlName="agree">
         <label for="agree" class="form-check-label text-justify" [ngClass]="agree.touched && !agree.valid ? 'text-danger' : ''">
-			I Agree that I am 18 years or older and not a resident of Telangana, Assam, Orissa, Kerala, Sikkim or Nagaland.
-		</label>
+            I Agree that I am 18 years or older and not a resident of Telangana, Assam, Orissa, Kerala, Sikkim or
+            Nagaland.
+        </label>
     </div>
 
 
-    <div class="mt-2">
-        <button mat-flat-button color="primary" class="btn btn-primary mr-2" type="submit" [disabled]="signUpForm.invalid">Submit</button>
+    <section class="mt-3">
+        <button mat-flat-button color="primary" class="btn btn-primary mr-2" type="submit" [disabled]="signUpForm.invalid">
+        Submit
+    </button>
         <button mat-flat-button color="danger" class="btn btn-danger" type="reset">Reset</button>
-    </div>
+    </section>
 </form>

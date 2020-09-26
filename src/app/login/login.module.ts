@@ -22,7 +22,7 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
   ],
 })
 export class LoginModule { }
