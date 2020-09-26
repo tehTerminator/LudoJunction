@@ -13,6 +13,7 @@ import { SqlResponse, UserType } from './../../shared/collection';
 export class SignInComponent implements OnInit {
 
 	signInForm: FormGroup;
+	loading = false;
 
 	constructor(
 		private fb: FormBuilder,
@@ -44,11 +45,13 @@ export class SignInComponent implements OnInit {
 		if (this.signInForm.invalid) {
 			return;
 		}
+		this.loading = true;
 		const username = this.signInForm.get('username').value;
 		const password = this.signInForm.get('password').value;
 
 		this.authService.signIn(username, password)
 			.subscribe((res: SqlResponse) => {
+				this.loading = false;
 				if (res.status) {
 					if (this.authService.userType === UserType.ADMINISTRATOR) {
 						this.router.navigate(['/admin']);

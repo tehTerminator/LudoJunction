@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-challenge-list-item',
   templateUrl: './challenge-list-item.component.html',
-  styleUrls: ['./challenge-list-item.component.css']
+  styleUrls: ['./challenge-list-item.component.css'],
 })
 export class ChallengeListItemComponent implements OnInit {
   @Input() challenge: Challenge;
