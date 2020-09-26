@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from './../../shared/auth.service';
-import { SqlResponse } from './../../shared/collection';
+import { SqlResponse, UserType } from './../../shared/collection';
 
 @Component({
 	selector: 'app-sign-in',
@@ -50,7 +50,11 @@ export class SignInComponent implements OnInit {
 		this.authService.signIn(username, password)
 			.subscribe((res: SqlResponse) => {
 				if (res.status) {
-					this.router.navigate(['/player']);
+					if (this.authService.userType === UserType.ADMINISTRATOR) {
+						this.router.navigate(['/admin']);
+					} else {
+						this.router.navigate(['/player']);
+					}
 				}  else {
 					this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000})
 				}

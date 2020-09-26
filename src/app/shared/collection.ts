@@ -7,7 +7,7 @@ export enum State {
 };
 
 export enum UserType {
-    ADMINISTRATOR, PLAYER
+    ADMINISTRATOR, PLAYER, ANONYMOUS
 };
 
 export interface SqlObject{

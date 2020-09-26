@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
+import { UserType } from '../shared/collection';
 import { User } from '../shared/user.model';
 
 @Component({
@@ -28,6 +29,20 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   get isLoggedIn(): boolean {
     return !!this.user;
+  }
+
+  get isAdmin(): boolean {
+    return this.authService.userType === UserType.ADMINISTRATOR;
+  }
+
+  get home(): Array<string> {
+    if (this.isAdmin) {
+      return ['/admin']
+    } else if(this.authService.userType === UserType.PLAYER) {
+      return ['/player']
+    } else {
+      return ['/login', 'signIn']
+    }
   }
 
   ngOnDestroy() {

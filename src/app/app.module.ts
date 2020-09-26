@@ -9,6 +9,7 @@ import { AuthInterceptor } from './shared/auth.interceptor';
 import { TermsPageComponent } from './terms-page/terms-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true

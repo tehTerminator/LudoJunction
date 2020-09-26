@@ -1,21 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, generate, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/user.model';
 import { HOUR, SqlResponse, UserType } from './collection';
 import { tap } from 'rxjs/operators';
-import { FormControl, ValidationErrors } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface UserData {
-  id: number;
+  id: string;
   title: string;
   username: string;
   token: string;
   generatedOn: string;
-  type: string;
+  isAdmin: string;
 }
 
 @Injectable({
@@ -52,13 +50,14 @@ export class AuthService implements OnDestroy {
     }
 
     localStorage.setItem('user', JSON.stringify(user));
+    const userType = user.isAdmin === "1" ? UserType.ADMINISTRATOR : UserType.PLAYER;
     const currentUser = new User(
       +user.id,
       user.title,
       user.username,
       user.token,
       generatedOn,
-      UserType[user.type]
+      userType
     );
     this.user.next(currentUser);
     const signOutAfter = HOUR - now + generatedOn;
@@ -76,9 +75,6 @@ export class AuthService implements OnDestroy {
   signUp(title: string, email: string, mobile: string, password: string) {
     const url = environment.url.user.signUp;
     return this.http.post(url, { title, email, mobile, password })
-    .pipe(tap((res: SqlResponse) => {
-      console.log(res);
-    }));
   }
 
   get userId(): number {
@@ -89,6 +85,17 @@ export class AuthService implements OnDestroy {
       id = 0;
     } finally{
       return id;
+    }
+  }
+
+  get userType(): UserType {
+    let type: UserType;
+    try{
+      type = this.user.value.type;
+    } catch (e) {
+      type = UserType.ANONYMOUS;
+    } finally {
+      return type;
     }
   }
 

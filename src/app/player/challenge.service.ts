@@ -5,6 +5,7 @@ import { Challenge, SECOND, SqlObject, SqlRequest, SqlResponse, State } from '..
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
 import { PlayerModule } from './player.module';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class ChallengeService implements OnDestroy {
@@ -45,7 +46,6 @@ export class ChallengeService implements OnDestroy {
           screenshot: item.screenshot
         })
       });
-      console.log(newList);
       this.challenges.next(newList);
     });
   }
@@ -54,7 +54,6 @@ export class ChallengeService implements OnDestroy {
     const url = environment.url.challenge.create
     this.http.post(url, {amount})
     .subscribe((res: SqlResponse) => {
-      console.log(res);
       if (res.status) {
         const gr: Challenge = {
           id: res.lastInsertId,
@@ -67,19 +66,17 @@ export class ChallengeService implements OnDestroy {
         }
         const newGameRequest = [...this.challenges.value, gr]
         this.challenges.next(newGameRequest);
-      } else {
-        console.log(res);
-      }
+      } 
     });
   }
 
   onUpdate(req: SqlRequest) {
-    this.http.post(environment.url.challenge.update, req)
-    .subscribe((res: SqlResponse) => {
+    return this.http.post(environment.url.challenge.update, req)
+    .pipe(tap((res: SqlResponse) => {
       if (res.status) {
         this.onRefresh();
       }
-    });
+    }))
   }
 
   /**
@@ -88,16 +85,12 @@ export class ChallengeService implements OnDestroy {
    */
   onAccept(id: number, amount: number) {
     const url = environment.url.challenge.accept;
-    this.http.post(url, {id, amount})
-    .subscribe((res: SqlResponse) => {
-      console.log(res);
+    return this.http.post(url, {id, amount})
+    .pipe(tap((res: SqlResponse) => {
       if (res.status) {
         this.onRefresh();
-      } else {
-        console.log(res);
-        // Show Some Error to Player
       }
-    });
+    }));
   }
 
   /**

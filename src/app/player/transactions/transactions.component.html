@@ -14,7 +14,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let tr of transactions">
+                            <tr *ngFor="let tr of transactions" [ngClass]="tr.amount >= 0 ? 'table-success' : 'table-danger'">
                                 <td>{{ tr.id }}</td>
                                 <td>{{ tr.postedOn | date:'dd-MMM hh:mm a' }}</td>
                                 <td>{{ tr.description }}</td>

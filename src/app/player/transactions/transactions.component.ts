@@ -12,7 +12,6 @@ import { Transaction, TransactionData } from './transaction.model';
 })
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[];
-  demo = [1,3,4,5,6,6];
   constructor(private http: HttpClient, private as: AuthService) { }
 
   ngOnInit(): void {

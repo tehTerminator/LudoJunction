@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Challenge, State } from '../../shared/collection';
+import { Challenge, SqlResponse, State } from '../../shared/collection';
 import { AuthService } from '../../shared/auth.service';
 import { FormControl } from '@angular/forms';
 import { ChallengeService } from '../challenge.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-challenge-list-item',
@@ -14,7 +15,8 @@ export class ChallengeListItemComponent implements OnInit {
   roomCode: FormControl;
   constructor(
     private as: AuthService,
-    private cs: ChallengeService
+    private cs: ChallengeService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +47,15 @@ export class ChallengeListItemComponent implements OnInit {
     this.cs.onUpdate({
       andWhere: {id: this.challenge.id},
       userData: {room: this.roomCode.value, state: State[State.ACTIVE]}
-    });
+    }).subscribe((res: SqlResponse) => {
+      this.snackBar.open(res.message[0]);
+    })
   }
 
-  onAccept = () => this.cs.onAccept(this.challenge.id, this.challenge.amount);
+  onAccept() {
+    this.cs.onAccept(this.challenge.id, this.challenge.amount)
+    .subscribe((res: SqlResponse) => {
+      this.snackBar.open(res.message[0]);
+    })
+  }
 }
