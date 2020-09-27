@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { GamesPageComponent } from './games-page/games-page.component';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
@@ -11,6 +11,9 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard', component: DashboardComponent,
+      },
+      {
+        path: 'approveGames', component: GamesPageComponent,
       },
       {
         path: '**', redirectTo: 'dashboard', pathMatch: 'full'

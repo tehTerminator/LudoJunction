@@ -45,6 +45,7 @@ export interface Challenge {
     state: State;
     postedOn?: Date;
     winner?: number;
+    winnerName?: string;
     screenshot?: string;
     stitle?: string;
     rtitle?: string;
