@@ -13,7 +13,8 @@ export const environment = {
     },
     balance: {
       view: 'http://localhost:80/ludoJunction/api/balance.view.php',
-      request: 'http://localhost:80/ludoJunction/api/balance.request.php'
+      request: 'http://localhost:80/ludoJunction/api/balance.request.php',
+      previousRequest: 'http://localhost:80/ludoJunction/api/balance.previous.php'
     },
     challenge: {
       get: 'http://localhost:80/ludoJunction/api/challenge.get.php',

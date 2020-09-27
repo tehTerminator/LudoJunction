@@ -21,7 +21,11 @@
     </mat-form-field>
 
     <div class="mt-3">
-        <button mat-flat-button color="primary" type="submit" class="btn btn-primary mr-2" [disabled]="signInForm.invalid">Submit</button>
-        <button mat-flat-button color="danger" type="reset" class="btn btn-danger">Reset</button>
+        <button type="submit" class="btn btn-primary mr-2" [disabled]="signInForm.invalid" mat-flat-button color="primary">
+            Submit
+        </button>
+        <button type="reset" class="btn btn-danger" mat-flat-button color="danger">
+            Reset
+        </button>
     </div>
 </form>
