@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../../../environments/environment';
-import { AuthService } from '../../../shared/auth.service';
 import { MINUTE, SqlResponse } from '../../../shared/collection';
 
 @Component({

@@ -3,7 +3,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-compact">
+                    <table class="table table-sm">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -18,8 +18,8 @@
                                 <td>{{ tr.id }}</td>
                                 <td>{{ tr.postedOn | date:'dd-MMM hh:mm a' }}</td>
                                 <td>{{ tr.description }}</td>
-                                <td>{{ tr.amount }}</td>
-                                <td>{{ tr.balance }}</td>
+                                <td>{{ tr.amount | number:'1.2-2' }}</td>
+                                <td>{{ tr.balance | number:'1.2-2' }}</td>
                             </tr>
                         </tbody>
                     </table>

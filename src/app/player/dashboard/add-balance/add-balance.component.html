@@ -8,11 +8,17 @@
                         suscipit?
                     </p>
 
-                    <mat-form-field class="d-block w-100" appearance="fill">
+                    <mat-form-field class="d-block w-100 mb-3" appearance="fill">
                         <mat-label>
                             Enter Amount
                         </mat-label>
                         <input matInput type="number" min="100" step="10" [formControl]="amount" required>
+                        <mat-error *ngIf="amount.errors && amount.errors.required">
+                            Please Enter Amount.
+                        </mat-error>
+                        <mat-error *ngIf="amount.errors && amount.errors.min">
+                            Minimum Amount of Rs. 100 is Required.
+                        </mat-error>
                     </mat-form-field>
 
                     <div class="input-group">

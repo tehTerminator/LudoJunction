@@ -9,10 +9,16 @@
             </div>
 
             <br>
-
-            <a [routerLink]="['/player', 'dashboard', 'requestChips']" mat-flat-button color="primary" class="w-100 d-block">
-                Request More Chips
-            </a>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="list-group text-center">
+                <a class="list-group-item list-group-item-action" routerLink="../payin">
+                    Request More Chips
+                </a>
+                <a class="list-group-item list-group-item-action" routerLink="../payout">
+                    Withdraw Chips
+                </a>
+            </div>
         </div>
     </div>
 </div>

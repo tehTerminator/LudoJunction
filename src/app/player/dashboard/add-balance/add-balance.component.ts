@@ -34,7 +34,11 @@ export class AddBalanceComponent implements OnInit {
         const b64 = reader.result;
         this.image = b64.toString();
     };
-    reader.readAsDataURL(file);
+    try{
+      reader.readAsDataURL(file);
+    } catch (e) {
+      return;
+    }
   }
 
   onSubmit() {
@@ -42,7 +46,7 @@ export class AddBalanceComponent implements OnInit {
       amount: this.amount.value,
       screenshot: this.image
     };
-    this.http.post(environment.url.balance.request, request)
+    this.http.post(environment.url.balance.payin, request)
     .subscribe((res: SqlResponse) => {
       console.log(res);
       this.snackBar.open(res.message[0], 'DIMISS', {duration: 5000});

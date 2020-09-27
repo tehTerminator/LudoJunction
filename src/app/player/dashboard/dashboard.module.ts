@@ -7,9 +7,10 @@ import { AddBalanceComponent } from './add-balance/add-balance.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from "@angular/forms";
+import { PayoutComponent } from './payout/payout.component';
 
 @NgModule({
-    declarations: [DashboardComponent, ShowBalanceComponent, AddBalanceComponent],
+    declarations: [DashboardComponent, ShowBalanceComponent, AddBalanceComponent, PayoutComponent],
     imports: [
         CommonModule,
         DashboardRoutingModule,
