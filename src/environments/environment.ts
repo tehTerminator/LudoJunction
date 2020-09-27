@@ -9,7 +9,9 @@ export const environment = {
       signIn: 'http://localhost:80/ludoJunction/api/user.signIn.php',
       signUp: 'http://localhost:80/ludoJunction/api/user.signUp.php',
       activate: 'http://localhost:80/ludoJunction/api/user.activate.php',
-      select: 'http://localhost:80/ludoJunction/api/user.select.php'
+      select: 'http://localhost:80/ludoJunction/api/user.select.php',
+      balance: 'http://localhost:80/ludoJunction/api/user.balance.php',
+
     },
     challenge: {
       get: 'http://localhost:80/ludoJunction/api/challenge.get.php',

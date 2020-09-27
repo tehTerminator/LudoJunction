@@ -1,0 +1,6 @@
+<div class="jumbotron text-center">
+    <h1 style="font-size: 5em;">{{ balance | number:'1.2-2'}}</h1>
+    <hr>
+    <p>Current Balance</p>
+    <button *ngIf="allowRefresh" (click)="onRefresh()" class="btn btn-primary w-100">Refresh</button>
+</div>

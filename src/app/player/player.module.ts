@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { PlayerRoutingModule } from './player-routing.module';
 import { PlayerComponent } from './player.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ResultComponent } from './result/result.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { CreateChallengeComponent } from './create-challenge/create-challenge.component';
@@ -13,19 +12,20 @@ import { ChallengeListItemComponent } from './challenge-list-item/challenge-list
 import { MyChallengeListComponent } from './my-challenge-list/my-challenge-list.component';
 import { ChallengeResultPageComponent } from './challenge-result-page/challenge-result-page.component';
 import { ChallengeService } from './challenge.service';
+import { PlayComponent } from './play/play.component';
 
 
 @NgModule({
   declarations: [
     PlayerComponent,
-    DashboardComponent, 
     ResultComponent, 
     TransactionsComponent, 
     CreateChallengeComponent, 
     ChallengeListComponent, 
     ChallengeListItemComponent,
     MyChallengeListComponent,
-    ChallengeResultPageComponent
+    ChallengeResultPageComponent,
+    PlayComponent
   ],
   imports: [
     CommonModule,

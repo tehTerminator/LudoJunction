@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChallengeService } from './challenge.service';
 @Component({
   selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css']
+  template: '<router-outlet></router-outlet>',
+  styles: []
 })
 export class PlayerComponent implements OnInit, OnDestroy{
 
