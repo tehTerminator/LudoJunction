@@ -55,7 +55,7 @@ export class ChallengeListItemComponent implements OnInit {
   onAccept() {
     this.cs.onAccept(this.challenge.id, this.challenge.amount)
     .subscribe((res: SqlResponse) => {
-      this.snackBar.open(res.message[0]);
+      this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
     })
   }
 }

@@ -14,6 +14,7 @@ import { SqlResponse } from '../../shared/collection';
 })
 export class SignUpComponent implements OnInit {
 	signUpForm: FormGroup;
+	loading = false;
 
 	constructor(
 		private fb: FormBuilder,
@@ -67,9 +68,11 @@ export class SignUpComponent implements OnInit {
 		const email = this.email.value;
 		const password = this.password.value;
 		const mobile = this.mobile.value;
+		this.loading = true;
 
 		this.authService.signUp(title, email, mobile, password)
 			.subscribe((res: SqlResponse) => {
+				this.loading = false;
 				if (res.status) {
 					this.router.navigate(['/login', 'activate', res.data[0].id]);
 				} else {
