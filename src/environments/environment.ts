@@ -14,6 +14,7 @@ export const environment = {
     balance: {
       view: 'http://localhost:80/ludoJunction/api/balance.view.php',
       payin: 'http://localhost:80/ludoJunction/api/balance.payin.php',
+      payout: 'http://localhost:80/ludoJunction/api/balance.payout.php',
       previousRequest: 'http://localhost:80/ludoJunction/api/balance.previous.php'
     },
     challenge: {
