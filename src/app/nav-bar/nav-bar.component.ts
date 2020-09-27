@@ -35,6 +35,10 @@ export class NavBarComponent implements OnInit, OnDestroy {
     return this.authService.userType === UserType.ADMINISTRATOR;
   }
 
+  get isPlayer(): boolean {
+    return this.authService.userType === UserType.PLAYER;
+  }
+
   get home(): Array<string> {
     if (this.isAdmin) {
       return ['/admin']

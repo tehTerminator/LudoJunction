@@ -11,12 +11,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserNavComponent } from './nav-bar/user-nav/user-nav.component';
+import { AdminNavComponent } from './nav-bar/admin-nav/admin-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    TermsPageComponent
+    TermsPageComponent,
+    UserNavComponent,
+    AdminNavComponent
   ],
   imports: [
     BrowserModule,

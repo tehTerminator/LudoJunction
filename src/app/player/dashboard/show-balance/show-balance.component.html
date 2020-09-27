@@ -1,6 +1,18 @@
-<div class="jumbotron text-center">
-    <h1 style="font-size: 5em;">{{ balance | number:'1.2-2'}}</h1>
-    <hr>
-    <p>Current Balance</p>
-    <button *ngIf="allowRefresh" (click)="onRefresh()" class="btn btn-primary w-100">Refresh</button>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6">
+            <div class="jumbotron text-center">
+                <h1 style="font-size: 5em;">{{ balance | number:'1.2-2'}}</h1>
+                <hr>
+                <p>Current Balance</p>
+                <button type="button" *ngIf="allowRefresh" (click)="onRefresh()" class="btn btn-primary w-100">Refresh</button>
+            </div>
+
+            <br>
+
+            <a [routerLink]="['/player', 'dashboard', 'requestChips']" mat-flat-button color="primary" class="w-100 d-block">
+                Request More Chips
+            </a>
+        </div>
+    </div>
 </div>

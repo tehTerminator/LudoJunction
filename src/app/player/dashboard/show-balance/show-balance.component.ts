@@ -25,7 +25,7 @@ export class ShowBalanceComponent implements OnInit {
 
   onRefresh() {
     this.allowRefresh = false;
-    this.http.get(environment.url.user.balance)
+    this.http.get(environment.url.balance.view)
     .subscribe((res: SqlResponse) => {
       console.log(res);
       if (res.status) {

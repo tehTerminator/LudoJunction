@@ -4,12 +4,18 @@ import { DashboardComponent } from "./dashboard.component";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { ShowBalanceComponent } from './show-balance/show-balance.component';
 import { AddBalanceComponent } from './add-balance/add-balance.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [DashboardComponent, ShowBalanceComponent, AddBalanceComponent],
     imports: [
         CommonModule,
-        DashboardRoutingModule
+        DashboardRoutingModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule
     ]
 })
 export class DashboardModule { }

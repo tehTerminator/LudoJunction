@@ -19,42 +19,8 @@
         <mat-icon>menu</mat-icon>
     </button>
     <div class="navbar-collapse" [ngClass]="navbarCollapsed ? 'collapse' : ''">
-        <ul class="navbar-nav" [hidden]="!isLoggedIn || isAdmin">
-            <!-- Player Menu -->
-            <li class="nav-item">
-                <a [routerLink]="['/player', 'play']" routerLinkActive="active" class="nav-link">
-                    Play
-                </a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="['/player', 'dashboard']" routerLinkActive="active" class="nav-link">
-                    Dashboard
-                </a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="['/player', 'transactions']" routerLinkActive="active" class="nav-link">
-                    Transactions
-                </a>
-            </li>
-        </ul>
-        <ul class="navbar-nav" [hidden]="!isLoggedIn || !isAdmin">
-            <!-- Administrator Menu -->
-            <li class="nav-item">
-                <a routerLinkActive="active" class="nav-link">
-                    Dashboard
-                </a>
-            </li>
-            <li class="nav-item">
-                <a routerLinkActive="active" class="nav-link">
-                    Approve Victory
-                </a>
-            </li>
-            <li class="nav-item">
-                <a [routerLink]="['player', 'transactions']" routerLinkActive="active" class="nav-link">
-                    Approve Transactions
-                </a>
-            </li>
-        </ul>
+        <app-user-nav *ngIf="isLoggedIn && isPlayer"></app-user-nav>
+        <app-admin-nav *ngIf="isLoggedIn && isAdmin"></app-admin-nav>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a routerLink="terms" routerLinkActive="active" class="nav-link">

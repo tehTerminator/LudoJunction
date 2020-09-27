@@ -38,7 +38,7 @@ export class ResultComponent implements OnInit {
         this.setImage(b64.toString());
     };
     reader.readAsDataURL(file);
-}
+  }
 
   setImage(imgData: string) {
     this.challenge.screenshot = imgData;
