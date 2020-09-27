@@ -1,11 +1,17 @@
 <form class="card" [formGroup]="createGameForm" (ngSubmit)="onSubmit()">
     <div class="card-body">
         <h3 class="card-title">Create New Game</h3>
-        <mat-form-field class="d-block mt-3">
+        <mat-form-field class="d-block mt-3" appearance="outline">
             <mat-label>Challenge Amount</mat-label>
-            <input matInput formControlName="amount" name="amount" type="number" />
+            <input matInput formControlName="amount" name="amount" min=10 step="10" type="number" placeholder="Enter Challange Amount" />
+            <mat-error *ngIf="amount.errors && amount.errors.min">
+                Amount Cannot Be Less Than 10.
+            </mat-error>
+            <mat-error *ngIf="amount.errors && amount.errors.required">
+                Amount Cannot Be Empty.
+            </mat-error>
         </mat-form-field>
 
-        <button mat-flat-button color="primary" type="submit" class="btn w-100">Create Challenge</button>
+        <button mat-flat-button color="primary" type="submit" class="btn w-100 mt-3">Create Challenge</button>
     </div>
 </form>

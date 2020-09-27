@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MatInputModule } from '@angular/material/input';
 import { PlayerRoutingModule } from './player-routing.module';
 import { PlayerComponent } from './player.component';
 import { ResultComponent } from './result/result.component';
@@ -13,6 +14,7 @@ import { MyChallengeListComponent } from './my-challenge-list/my-challenge-list.
 import { ChallengeResultPageComponent } from './challenge-result-page/challenge-result-page.component';
 import { ChallengeService } from './challenge.service';
 import { PlayComponent } from './play/play.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { PlayComponent } from './play/play.component';
   imports: [
     CommonModule,
     PlayerRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [ChallengeService]
 })

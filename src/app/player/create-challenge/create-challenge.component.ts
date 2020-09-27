@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChallengeService } from '../challenge.service';
 
 @Component({
@@ -14,12 +14,16 @@ export class CreateChallengeComponent implements OnInit {
 
   ngOnInit(): void {
     this.createGameForm = this.fb.group({
-      amount: [10, Validators.required]
+      amount: [10, [Validators.required, Validators.min(10)]]
     });
   }
 
   onSubmit() {
     const amount = +this.createGameForm.get('amount').value;
     this.challengeService.onCreate(amount);
+  }
+
+  get amount(): FormControl {
+    return this.createGameForm.get('amount') as FormControl;
   }
 }
