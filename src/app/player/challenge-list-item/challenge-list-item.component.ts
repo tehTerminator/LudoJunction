@@ -58,4 +58,8 @@ export class ChallengeListItemComponent implements OnInit {
       this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
     })
   }
+
+  onReject() {
+    this.cs.onReject(this.challenge.id)
+  }
 }

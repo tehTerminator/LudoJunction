@@ -8,6 +8,10 @@
         Accept
     </button>
 
+    <button class="btn btn-danger d-block mt-3 w-100" *ngIf="isMine() && !isActive()" (click)="onReject()">
+        Reject
+    </button>
+
 
     <div class="input-group mt-3" *ngIf="showRoomInput()">
         <input [readOnly]="!isMine()" type="text" class="form-control" [formControl]="roomCode" placeholder="Enter Room Code">

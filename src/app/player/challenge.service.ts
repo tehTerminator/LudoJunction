@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, empty } from 'rxjs';
 import { Challenge, SECOND, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
 import { PlayerModule } from './player.module';
 import { tap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class ChallengeService implements OnDestroy {
@@ -13,6 +14,7 @@ export class ChallengeService implements OnDestroy {
   ticker = null;
 
   constructor(
+    private snackBar: MatSnackBar,
     private http: HttpClient, 
     private authService: AuthService) {
 
@@ -109,6 +111,19 @@ export class ChallengeService implements OnDestroy {
     };
     const url = environment.url.challenge.result;
     return this.http.post(url, request);
+  }
+
+  onReject(id: number) {
+    const challenge = this.challenges.value.find( x => x.id === id);
+    if (challenge.sender === this.authService.userId) {
+      this.http.post(environment.url.challenge.reject, {id})
+      .subscribe((res: SqlResponse) => {
+        this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
+        if (res.status) {
+          this.onRefresh();
+        }
+      });
+    }
   }
 
   ngOnDestroy() {

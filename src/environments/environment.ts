@@ -22,7 +22,8 @@ export const environment = {
       create: 'http://localhost:80/ludoJunction/api/challenge.create.php',
       update: 'http://localhost:80/ludoJunction/api/challenge.update.php',
       accept: 'http://localhost:80/ludoJunction/api/challenge.accept.php',
-      result: 'http://localhost:80/ludoJunction/api/challenge.result.php'
+      result: 'http://localhost:80/ludoJunction/api/challenge.result.php',
+      reject: 'http://localhost:80/ludoJunction/api/challenge.reject.php'
     },
     transaction: 'http://localhost:80/ludoJunction/api/transactions.php'
   }
