@@ -24,9 +24,12 @@ export class PlayerGuard implements CanActivate {
                 const auth = !!user;
                 if (auth && user.type === UserType.PLAYER) {
                     return true;
-                } 
-                this.authService.signOut();
-                return this.router.createUrlTree(['/login']);
+                } else if (auth && user.type === UserType.ADMINISTRATOR) {
+                    return this.router.createUrlTree(['/admin']);
+                } else {
+                    this.authService.signOut();
+                    return this.router.createUrlTree(['/login']);
+                }
             }
         ))
     }

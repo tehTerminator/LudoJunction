@@ -103,8 +103,7 @@ export class AuthService implements OnDestroy {
     const userData: UserData = JSON.parse(localStorage.getItem('user'));
     if (userData !== null) {
       this.handleAuthentication(userData);
-    }
-    this.router.navigate(['/player']);
+    } 
   }
 
   ngOnDestroy() {

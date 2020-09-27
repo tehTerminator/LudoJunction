@@ -38,12 +38,12 @@ export interface SqlRequest {
 
 export interface Challenge {
     id: number;
-    sender: number;
+    sender?: number;
     receiver?: number;
     amount: number;
     room?: string;
     state: State;
-    postedOn: Date;
+    postedOn?: Date;
     winner?: number;
     screenshot?: string;
     stitle?: string;

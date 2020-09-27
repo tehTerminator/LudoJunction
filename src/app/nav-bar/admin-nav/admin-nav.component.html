@@ -1,6 +1,6 @@
 <ul class="navbar-nav text-center">
     <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link">
+        <a [routerLink]="['/admin', 'dashboard']" routerLinkActive="active" class="nav-link">
             Dashboard
         </a>
     </li>
@@ -10,7 +10,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a [routerLink]="['player', 'transactions']" routerLinkActive="active" class="nav-link">
+        <a routerLinkActive="active" class="nav-link">
             Approve Transactions
         </a>
     </li>

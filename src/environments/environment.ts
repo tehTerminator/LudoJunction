@@ -26,6 +26,11 @@ export const environment = {
       reject: 'http://localhost:80/ludoJunction/api/challenge.reject.php'
     },
     transaction: 'http://localhost:80/ludoJunction/api/transactions.php'
+  },
+  adminUrls: {
+    challenges: {
+      get: 'http://localhost:80/ludoJunction/api/admin.challenges.get.php'
+    }
   }
 };
 

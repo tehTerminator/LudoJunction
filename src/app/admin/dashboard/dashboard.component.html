@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <app-info-card [stat]="activeGames.length" description="Active Games" classes="text-light bg-success">
+            </app-info-card>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <app-info-card [stat]="pendingGames.length" description="Pending Games" classes="text-light bg-primary">
+            </app-info-card>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <app-info-card [stat]="totalActiveAmount" description="Active Games Amount" classes="text-light bg-success">
+            </app-info-card>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6">
+            <app-info-card [stat]="totalPendingAmount" description="Pending Games Amount" classes="text-light bg-primary">
+            </app-info-card>
+        </div>
+    </div>
+</div>

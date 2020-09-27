@@ -4,7 +4,6 @@ import { BehaviorSubject, empty } from 'rxjs';
 import { Challenge, SECOND, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
-import { PlayerModule } from './player.module';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

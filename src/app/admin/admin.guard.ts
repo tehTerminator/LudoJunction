@@ -24,7 +24,9 @@ export class AdminGuard implements CanActivate {
                 const auth = !!user;
                 if (auth && user.type === UserType.ADMINISTRATOR) {
                     return true;
-                } 
+                } else if (auth && user.type === UserType.PLAYER) {
+                    return this.router.createUrlTree(['/player']);
+                }
                 this.authService.signOut();
                 return this.router.createUrlTree(['/login']);
             }
