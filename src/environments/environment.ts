@@ -29,7 +29,8 @@ export const environment = {
   },
   adminUrls: {
     challenges: {
-      get: 'http://localhost:80/ludoJunction/api/admin.challenges.get.php'
+      get: 'http://localhost:80/ludoJunction/api/admin.challenges.get.php',
+      approve: 'http://localhost:80/ludoJunction/api/admin.challenge.approve.php'
     }
   }
 };

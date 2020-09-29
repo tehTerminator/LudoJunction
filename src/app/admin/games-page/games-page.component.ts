@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { SqlRequest, Challenge, SqlResponse, SqlObject, State } from '../../shared/collection';
 import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-games-page',
@@ -10,9 +11,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GamesPageComponent implements OnInit {
   challenge: Challenge;
-  private timer = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.onRefresh();
@@ -64,9 +64,23 @@ export class GamesPageComponent implements OnInit {
       rtitle: item.rtitle,
       winner: +item.winner,
       winnerName: +item.winner === +item.sender ? item.stitle : item.rtitle,
-      // screenshot: item.screenshot,
-      screenshot: `http://localhost:80/ludoJunction/${item.screenshot.substr(3)}`
+      screenshot: item.screenshot
     }
+  }
+
+  onApprove = () => this.setState(this.challenge.id, 'APPROVE');
+  onReject = () => this.setState(this.challenge.id, 'REJECT');
+
+  private setState(id: number, state: string) {
+    this.http
+    .post(environment.adminUrls.challenges.approve, {id, state})
+      .subscribe((res: SqlResponse) => {
+        console.log(res);
+      if (res.status) {
+        this.onRefresh();
+      }
+      this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
+    })
   }
 
 }
