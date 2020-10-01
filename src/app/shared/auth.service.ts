@@ -10,7 +10,8 @@ import { tap } from 'rxjs/operators';
 interface UserData {
   id: string;
   title: string;
-  username: string;
+  mobile: string;
+  email: string;
   token: string;
   generatedOn: string;
   isAdmin: string;
@@ -54,7 +55,7 @@ export class AuthService implements OnDestroy {
     const currentUser = new User(
       +user.id,
       user.title,
-      user.username,
+      user.mobile,
       user.token,
       generatedOn,
       userType

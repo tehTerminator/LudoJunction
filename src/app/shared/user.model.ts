@@ -5,7 +5,7 @@ export class User {
     constructor(
         private theId: number,
         public title: string,
-        public username: string,
+        public mobile: string,
         private theToken: string,
         public generatedOn: number,
         private theType: UserType
