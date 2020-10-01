@@ -51,3 +51,16 @@ export interface Challenge {
     rtitle?: string;
 }
 
+export interface PaymentRequest{
+    id: number;
+    userId: number;
+    requestType: string;
+    postedOn: Date;
+    amount: number;
+    state: State;
+    screenshot: string;
+    comment: string;
+    userTitle?: string;
+    mobile?: string;
+}
+

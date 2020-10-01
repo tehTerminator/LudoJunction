@@ -30,7 +30,11 @@ export const environment = {
   adminUrls: {
     challenges: {
       get: 'http://localhost:80/ludoJunction/api/admin.challenges.get.php',
-      approve: 'http://localhost:80/ludoJunction/api/admin.challenge.approve.php'
+      approve: 'http://localhost:80/ludoJunction/api/admin.challenge.approve.php',
+    },
+    payRequest: {
+      get: 'http://localhost:80/ludoJunction/api/admin.payReq.get.php',
+      post: 'http://localhost:80/ludoJunction/api/admin.payReq.post.php'
     }
   }
 };
