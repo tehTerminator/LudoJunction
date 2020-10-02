@@ -24,9 +24,29 @@
                         </tbody>
                     </table>
 
+                    <textarea name="comment" cols="30" rows="10" [formControl]="comment">
+
+                    </textarea>
+
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="screenshot" #screenshot (change)="onImageSelected()" accept="image/*">
+                            <label class="custom-file-label" for="screenshot">Attach Screenshot</label>
+                        </div>
+                    </div>
+
                     <div class="btn-group w-100 mt-3">
                         <div class="btn btn-success" (click)="onApprove()">Approve</div>
                         <div class="btn btn-danger" (click)="onReject()">Reject</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-6" *ngIf="request.screenshot">
+                <div class="card">
+                    <img [src]="request.screenshot" class="card-img-top" alt="">
+                    <div class="card-body">
+                        Request For Amount {{ request.amount | number:'1.2-2' }}
                     </div>
                 </div>
             </div>

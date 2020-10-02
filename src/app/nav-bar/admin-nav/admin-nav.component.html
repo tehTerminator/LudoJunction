@@ -10,8 +10,13 @@
         </a>
     </li>
     <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link">
-            Approve Transactions
+        <a [routerLink]="['/admin', 'pay-in']" routerLinkActive="active" class="nav-link">
+            Pay-In Request
+        </a>
+    </li>
+    <li class="nav-item">
+        <a [routerLink]="['/admin', 'pay-out']" routerLinkActive="active" class="nav-link">
+            Pay-Out Request
         </a>
     </li>
 </ul>

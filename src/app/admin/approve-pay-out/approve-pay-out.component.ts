@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../../environments/environment';
 import { SqlObject, SqlResponse, PaymentRequest, State } from '../../shared/collection';
+import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-approve-pay-in',
-  templateUrl: './approve-pay-in.component.html',
-  styleUrls: ['./approve-pay-in.component.css']
+  selector: 'app-approve-pay-out',
+  templateUrl: './approve-pay-out.component.html',
+  styleUrls: ['./approve-pay-out.component.css']
 })
-export class ApprovePayInComponent implements OnInit {
+export class ApprovePayOutComponent implements OnInit {
   request: PaymentRequest;
+  comment: FormControl;
+  @ViewChild('screenshot') screenshot: ElementRef;
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.comment = new FormControl();
     this.onRefresh();
   }
 
   onRefresh(): void {
-    this.http.get(environment.adminUrls.payRequest.get + '?req=PAYIN')
+    this.http.get(environment.adminUrls.payRequest.get + '?req=PAYOUT')
     .subscribe((res: SqlResponse) => {
       console.log(res);
       if (res.status && res.data.length >= 1) {
@@ -49,10 +53,13 @@ export class ApprovePayInComponent implements OnInit {
   onReject = () => this.onUpdateReq(this.request.id, 'REJECTED');
 
   private onUpdateReq(id: number, state: string) {
-    const reqType = 'PAYIN';
+    const reqType = 'PAYOUT';
+    const screenshot = this.request.screenshot;
+    const comment = this.comment.value;
+
     this.http.post(
       environment.adminUrls.payRequest.post,
-      {id, state, reqType }
+      {id, state, reqType, screenshot, comment }
     )
     .subscribe((res: SqlResponse) => {
       console.log(res);
@@ -63,6 +70,21 @@ export class ApprovePayInComponent implements OnInit {
         this.snackBar.open('Failed to Update', 'TRY AGAIN', {duration: 5000});
       }
     });
+  }
+
+  onImageSelected() {
+    const file = this.screenshot.nativeElement.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+        const b64 = reader.result;
+        this.request.screenshot = b64.toString();
+    };
+    try{
+      reader.readAsDataURL(file);
+    } catch (e) {
+      return;
+    }
   }
 
 }

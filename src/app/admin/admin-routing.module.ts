@@ -1,7 +1,9 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GamesPageComponent } from './games-page/games-page.component';
+import { ApprovePayInComponent } from './approve-pay-in/approve-pay-in.component';
+import { ApprovePayOutComponent } from './approve-pay-out/approve-pay-out.component';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
@@ -14,6 +16,12 @@ const routes: Routes = [
       },
       {
         path: 'approveGames', component: GamesPageComponent,
+      },
+      {
+        path: 'pay-in', component: ApprovePayInComponent,
+      },
+      {
+        path: 'pay-out', component: ApprovePayOutComponent,
       },
       {
         path: '**', redirectTo: 'dashboard', pathMatch: 'full'
