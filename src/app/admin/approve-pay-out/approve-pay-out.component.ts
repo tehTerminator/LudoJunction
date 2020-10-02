@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../../environments/environment';
 import { SqlObject, SqlResponse, PaymentRequest, State } from '../../shared/collection';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-approve-pay-out',
@@ -12,12 +11,12 @@ import { FormControl } from '@angular/forms';
 })
 export class ApprovePayOutComponent implements OnInit {
   request: PaymentRequest;
-  comment: FormControl;
+  comment: string;
   @ViewChild('screenshot') screenshot: ElementRef;
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.comment = new FormControl();
+    this.comment ='';
     this.onRefresh();
   }
 
@@ -55,7 +54,7 @@ export class ApprovePayOutComponent implements OnInit {
   private onUpdateReq(id: number, state: string) {
     const reqType = 'PAYOUT';
     const screenshot = this.request.screenshot;
-    const comment = this.comment.value;
+    const comment = this.comment;
 
     this.http.post(
       environment.adminUrls.payRequest.post,

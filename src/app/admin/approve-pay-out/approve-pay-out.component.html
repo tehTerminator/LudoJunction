@@ -2,7 +2,6 @@
     <div class="row justify-content-center">
         <div class="col-lg-4 col-md-6">
             <div class="card" *ngIf="request; else noRequest;">
-                <img [src]="request.screenshot" class="card-img-top">
                 <div class="card-body">
                     <h1 class="card-title">
                         {{ request.userTitle }}
@@ -24,9 +23,10 @@
                         </tbody>
                     </table>
 
-                    <textarea name="comment" cols="30" rows="10" [formControl]="comment">
-
-                    </textarea>
+                    <mat-form-field class="w-100 mt-3" appearance="outline">
+                        <mat-label for="comment">Comment</mat-label>
+                        <textarea [(ngModel)]="comment" matInput></textarea>
+                    </mat-form-field>
 
                     <div class="input-group">
                         <div class="custom-file">
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-8 col-md-6" *ngIf="request.screenshot">
+            <div class="mt-3" *ngIf="request && request.screenshot">
                 <div class="card">
                     <img [src]="request.screenshot" class="card-img-top" alt="">
                     <div class="card-body">

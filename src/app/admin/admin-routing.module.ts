@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GamesPageComponent } from './games-page/games-page.component';
 import { ApprovePayInComponent } from './approve-pay-in/approve-pay-in.component';
 import { ApprovePayOutComponent } from './approve-pay-out/approve-pay-out.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
@@ -22,6 +23,9 @@ const routes: Routes = [
       },
       {
         path: 'pay-out', component: ApprovePayOutComponent,
+      },
+      {
+        path: 'transactions', component: TransactionsComponent,
       },
       {
         path: '**', redirectTo: 'dashboard', pathMatch: 'full'

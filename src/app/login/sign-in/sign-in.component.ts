@@ -52,7 +52,7 @@ export class SignInComponent implements OnInit {
 		this.authService.signIn(username, password)
 			.subscribe((res: SqlResponse) => {
 				if (res.status) {
-					setTimeout(() => this.redirect(), 1000);
+					setTimeout(() => this.redirect(), 2000);
 				} else {
 					this.loading = false;
 					this.snackBar.open('Try Again', '', {duration: 2000});
@@ -62,11 +62,16 @@ export class SignInComponent implements OnInit {
 
 	private redirect() {
 		this.loading = false;
-		console.log('Redirecting', this.authService.userType);
-		if (this.authService.userType === UserType.ADMINISTRATOR) {
-			this.router.navigate(['/admin']);
+		const user = this.authService.user.value;
+		if (!!user) {
+			console.log('Logged In', user);
+			if (this.authService.userType === UserType.ADMINISTRATOR) {
+				this.router.navigate(['/admin']);
+			} else {
+				this.router.navigate(['/player']);
+			}
 		} else {
-			this.router.navigate(['/player']);
+			this.snackBar.open('Try Again', '', {duration: 2000});
 		}
 	}
 }

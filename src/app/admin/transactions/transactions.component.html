@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <mat-form-field class="w-100" appearance="fill">
+                        <mat-label>Date</mat-label>
+                        <input type="date" matInput [(ngModel)]="theDate">
+                    </mat-form-field>
+                    <button mat-stroked-button color="primary" class="btn w-100 mt-3" (click)="onRefresh()">
+                        View
+                    </button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tr of transactions" [ngClass]="tr.amount >= 0 ? 'table-success' : 'table-danger'">
+                                <td>{{ tr.id }}</td>
+                                <td>{{ tr.postedOn | date:'dd-MMM hh:mm a' }}</td>
+                                <td>{{ tr.description }}</td>
+                                <td>{{ tr.amount | number:'1.2-2' }}</td>
+                                <td>{{ tr.balance | number:'1.2-2' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,13 +8,20 @@ import { InfoCardComponent } from './dashboard/info-card/info-card.component';
 import { GamesPageComponent } from './games-page/games-page.component';
 import { ApprovePayInComponent } from './approve-pay-in/approve-pay-in.component';
 import { ApprovePayOutComponent } from './approve-pay-out/approve-pay-out.component';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
-  declarations: [AdminComponent, DashboardComponent, InfoCardComponent, GamesPageComponent, ApprovePayInComponent, ApprovePayOutComponent],
+  declarations: [AdminComponent, DashboardComponent, InfoCardComponent, GamesPageComponent, ApprovePayInComponent, ApprovePayOutComponent, TransactionsComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule,
+    MatInputModule,
+    MatButtonModule
   ]
 })
 export class AdminModule { }
