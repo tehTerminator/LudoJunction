@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="loading?'loading':''">
     <div class="row justify-content-center">
         <div class="col-lg-4 col-md-6">
             <div class="card" *ngIf="challenge; else noChallenge;">

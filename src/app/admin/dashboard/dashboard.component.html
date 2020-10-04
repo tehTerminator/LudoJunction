@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="loading?'loading':''">
     <div class="row">
         <div class="col-lg-2 col-md-4 col-sm-6">
             <app-info-card [stat]="activeGames.length" description="Active Games" classes="text-light bg-success">

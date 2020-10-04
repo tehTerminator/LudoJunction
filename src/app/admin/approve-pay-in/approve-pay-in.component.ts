@@ -11,6 +11,7 @@ import { SqlObject, SqlResponse, PaymentRequest, State } from '../../shared/coll
 })
 export class ApprovePayInComponent implements OnInit {
   request: PaymentRequest;
+  loading = false;
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -18,8 +19,10 @@ export class ApprovePayInComponent implements OnInit {
   }
 
   onRefresh(): void {
+    this.loading = true;
     this.http.get(environment.adminUrls.payRequest.get + '?req=PAYIN')
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       console.log(res);
       if (res.status && res.data.length >= 1) {
         this.setRequest(res.data[0]);
@@ -50,11 +53,13 @@ export class ApprovePayInComponent implements OnInit {
 
   private onUpdateReq(id: number, state: string) {
     const reqType = 'PAYIN';
+    this.loading = true;
     this.http.post(
       environment.adminUrls.payRequest.post,
       {id, state, reqType }
     )
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       console.log(res);
       if (res.status) {
         this.onRefresh();

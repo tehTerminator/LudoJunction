@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ChallengeListItemComponent implements OnInit {
   @Input() challenge: Challenge;
   roomCode: FormControl;
+  loading = false;
   constructor(
     private as: AuthService,
     private cs: ChallengeService,
@@ -44,22 +45,28 @@ export class ChallengeListItemComponent implements OnInit {
   }
 
   onSaveRoom() {
+    this.loading = true;
     this.cs.onUpdate({
       andWhere: {id: this.challenge.id},
       userData: {room: this.roomCode.value, state: State[State.ACTIVE]}
     }).subscribe((res: SqlResponse) => {
+      this.loading = false;
       this.snackBar.open(res.message[0]);
     })
   }
 
   onAccept() {
+    this.loading = true;
     this.cs.onAccept(this.challenge.id, this.challenge.amount)
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
     })
   }
 
   onReject() {
+    this.loading = true;
     this.cs.onReject(this.challenge.id)
+    .subscribe(() => this.loading = false);
   }
 }

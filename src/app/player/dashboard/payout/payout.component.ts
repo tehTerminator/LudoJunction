@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class PayoutComponent implements OnInit {
   amount: FormControl;
+  loading = false;
 
   constructor(
     private http: HttpClient,
@@ -28,9 +29,11 @@ export class PayoutComponent implements OnInit {
     if (this.amount.invalid) {
       return;
     } 
+    this.loading = true;
 
     this.http.post(environment.url.balance.payout, {amount: this.amount.value})
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
       if (res.status) {
         this.router.navigate(['/player', 'dashboard', 'balance']);

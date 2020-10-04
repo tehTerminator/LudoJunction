@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DashboardComponent implements OnInit, OnDestroy {
   private challenges: Challenge[] = [];
   private timer = null;
+  loading = false;
 
   constructor(
     private http: HttpClient,
@@ -28,8 +29,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onRefresh() {
+    this.loading = true;
     this.http.get(environment.adminUrls.challenges.get)
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       console.log(res);
       if (res.status) {
         this.challenges = [];

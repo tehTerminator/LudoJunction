@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, empty } from 'rxjs';
+import { BehaviorSubject, EMPTY, empty } from 'rxjs';
 import { Challenge, SECOND, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
@@ -117,13 +117,15 @@ export class ChallengeService implements OnDestroy {
   onReject(id: number) {
     const challenge = this.challenges.value.find( x => x.id === id);
     if (challenge.sender === this.authService.userId) {
-      this.http.post(environment.url.challenge.reject, {id})
-      .subscribe((res: SqlResponse) => {
+      return this.http.post(environment.url.challenge.reject, {id})
+      .pipe(tap((res: SqlResponse) => {
         this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
         if (res.status) {
           this.onRefresh();
         }
-      });
+      }));
+    } else {
+      return EMPTY;
     }
   }
 

@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class GamesPageComponent implements OnInit {
   challenge: Challenge;
+  loading = false;
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
@@ -19,6 +20,7 @@ export class GamesPageComponent implements OnInit {
   }
 
   onRefresh() {
+    this.loading = true;
     const request: SqlRequest = {
       columns: [
         'challenges.id',
@@ -42,6 +44,7 @@ export class GamesPageComponent implements OnInit {
 
     this.http.post(environment.adminUrls.challenges.get, request)
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       console.log(res);
       if (res.status && res.data.length === 1) {
         this.setChallenge(res.data[0]);
@@ -72,9 +75,11 @@ export class GamesPageComponent implements OnInit {
   onReject = () => this.setState(this.challenge.id, 'REJECT');
 
   private setState(id: number, state: string) {
+    this.loading = true;
     this.http
     .post(environment.adminUrls.challenges.approve, {id, state})
       .subscribe((res: SqlResponse) => {
+      this.loading = false;
         console.log(res);
       if (res.status) {
         this.onRefresh();

@@ -12,6 +12,7 @@ import { SqlObject, SqlResponse, PaymentRequest, State } from '../../shared/coll
 export class ApprovePayOutComponent implements OnInit {
   request: PaymentRequest;
   comment: string;
+  loading = false;
   @ViewChild('screenshot') screenshot: ElementRef;
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
@@ -21,8 +22,10 @@ export class ApprovePayOutComponent implements OnInit {
   }
 
   onRefresh(): void {
+    this.loading = true;
     this.http.get(environment.adminUrls.payRequest.get + '?req=PAYOUT')
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       console.log(res);
       if (res.status && res.data.length >= 1) {
         this.setRequest(res.data[0]);
@@ -53,6 +56,7 @@ export class ApprovePayOutComponent implements OnInit {
 
   private onUpdateReq(id: number, state: string) {
     const reqType = 'PAYOUT';
+    this.loading = true;
     const screenshot = this.request.screenshot;
     const comment = this.comment;
 
@@ -61,6 +65,7 @@ export class ApprovePayOutComponent implements OnInit {
       {id, state, reqType, screenshot, comment }
     )
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       console.log(res);
       if (res.status) {
         this.onRefresh();

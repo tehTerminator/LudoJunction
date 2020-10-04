@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../../../environments/environment';
 import { MINUTE, SqlResponse } from '../../../shared/collection';
@@ -9,9 +9,11 @@ import { MINUTE, SqlResponse } from '../../../shared/collection';
   templateUrl: './show-balance.component.html',
   styleUrls: ['./show-balance.component.css']
 })
-export class ShowBalanceComponent implements OnInit {
+export class ShowBalanceComponent implements OnInit, OnDestroy {
   balance = 0;
   allowRefresh = true;
+  loading = false;
+  timer = null;
 
   constructor(
     private http: HttpClient, 
@@ -22,11 +24,17 @@ export class ShowBalanceComponent implements OnInit {
     this.onRefresh();
   }
 
+  ngOnDestroy() {
+    clearTimeout(this.timer);
+  }
+
   onRefresh() {
+    this.loading = true;
     this.allowRefresh = false;
     this.http.get(environment.url.balance.view)
     .subscribe((res: SqlResponse) => {
       console.log(res);
+      this.loading = false;
       if (res.status) {
         this.balance = +res.data[0].balance;
       } else {
@@ -34,7 +42,7 @@ export class ShowBalanceComponent implements OnInit {
       }
     });
 
-    setTimeout(() => {this.allowRefresh = true}, MINUTE);
+    this.timer = setTimeout(() => {this.allowRefresh = true}, MINUTE);
   }
 
 }
