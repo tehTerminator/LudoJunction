@@ -1,4 +1,4 @@
-<form class="card" [formGroup]="createGameForm" (ngSubmit)="onSubmit()">
+<form class="card" [formGroup]="createGameForm" (ngSubmit)="onSubmit()" [ngClass]="loading?'loading':''">
     <div class="card-body">
         <h3 class="card-title">Create New Game</h3>
         <mat-form-field class="d-block mt-3" appearance="outline">

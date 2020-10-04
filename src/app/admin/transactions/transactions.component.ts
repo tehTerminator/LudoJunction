@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[];
   theDate: string;
+  loading = false;
   constructor(
     private http: HttpClient,
     private as: AuthService,
@@ -24,18 +25,20 @@ export class TransactionsComponent implements OnInit {
   ngOnInit(): void {
     this.onRefresh();
     this.theDate = this.datePipe.transform(new Date(), 'yyyy-mm-dd');
-    console.log(this.theDate);
+    // console.log(this.theDate);
   }
 
   onRefresh() {
+    this.loading = true;
     this.http.post(environment.url.transaction, {date: this.theDate})
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       if (res.status) {
         this.transactions = [];
         res.data.forEach((t: TransactionData) => {
           this.transactions.push(new Transaction(t, this.as.userId));
         });
-        console.log(this.transactions);
+        // console.log(this.transactions);
       }
     })
   }

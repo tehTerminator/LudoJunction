@@ -5,7 +5,8 @@ export const environment = {
       signIn: 'http://ludojunction.com/api/user.signIn.php',
       signUp: 'http://ludojunction.com/api/user.signUp.php',
       activate: 'http://ludojunction.com/api/user.activate.php',
-      select: 'http://ludojunction.com/api/user.select.php'
+      select: 'http://ludojunction.com/api/user.select.php',
+      revalidate: 'http://ludojunction.com/api/user.validate.php'
     },
     balance: {
       view: 'http://ludojunction.com/api/balance.view.php',
@@ -18,8 +19,19 @@ export const environment = {
       create: 'http://ludojunction.com/api/challenge.create.php',
       update: 'http://ludojunction.com/api/challenge.update.php',
       accept: 'http://ludojunction.com/api/challenge.accept.php',
-      result: 'http://ludojunction.com/api/challenge.result.php'
+      result: 'http://ludojunction.com/api/challenge.result.php',
+      reject: 'http://ludojunction.com/api/challenge.reject.php'
     },
     transaction: 'http://ludojunction.com/api/transactions.php'
+  },
+  adminUrls: {
+    challenges: {
+      get: 'http://ludojunction.com/api/admin.challenges.get.php',
+      approve: 'http://ludojunction.com/api/admin.challenge.approve.php',
+    },
+    payRequest: {
+      get: 'http://ludojunction.com/api/admin.payReq.get.php',
+      post: 'http://ludojunction.com/api/admin.payReq.post.php'
+    }
   }
 };

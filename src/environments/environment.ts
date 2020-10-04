@@ -6,35 +6,36 @@ export const environment = {
   production: false,
   url: {
     user: {
-      signIn: 'http://localhost:80/ludoJunction/api/user.signIn.php',
-      signUp: 'http://localhost:80/ludoJunction/api/user.signUp.php',
-      activate: 'http://localhost:80/ludoJunction/api/user.activate.php',
-      select: 'http://localhost:80/ludoJunction/api/user.select.php'
+      signIn: 'http://ludojunction.com/api/user.signIn.php',
+      signUp: 'http://ludojunction.com/api/user.signUp.php',
+      activate: 'http://ludojunction.com/api/user.activate.php',
+      select: 'http://ludojunction.com/api/user.select.php',
+      revalidate: 'http://ludojunction.com/api/user.validate.php'
     },
     balance: {
-      view: 'http://localhost:80/ludoJunction/api/balance.view.php',
-      payin: 'http://localhost:80/ludoJunction/api/balance.payin.php',
-      payout: 'http://localhost:80/ludoJunction/api/balance.payout.php',
-      previousRequest: 'http://localhost:80/ludoJunction/api/balance.previous.php'
+      view: 'http://ludojunction.com/api/balance.view.php',
+      payin: 'http://ludojunction.com/api/balance.payin.php',
+      payout: 'http://ludojunction.com/api/balance.payout.php',
+      previousRequest: 'http://ludojunction.com/api/balance.previous.php'
     },
     challenge: {
-      get: 'http://localhost:80/ludoJunction/api/challenge.get.php',
-      create: 'http://localhost:80/ludoJunction/api/challenge.create.php',
-      update: 'http://localhost:80/ludoJunction/api/challenge.update.php',
-      accept: 'http://localhost:80/ludoJunction/api/challenge.accept.php',
-      result: 'http://localhost:80/ludoJunction/api/challenge.result.php',
-      reject: 'http://localhost:80/ludoJunction/api/challenge.reject.php'
+      get: 'http://ludojunction.com/api/challenge.get.php',
+      create: 'http://ludojunction.com/api/challenge.create.php',
+      update: 'http://ludojunction.com/api/challenge.update.php',
+      accept: 'http://ludojunction.com/api/challenge.accept.php',
+      result: 'http://ludojunction.com/api/challenge.result.php',
+      reject: 'http://ludojunction.com/api/challenge.reject.php'
     },
-    transaction: 'http://localhost:80/ludoJunction/api/transactions.php'
+    transaction: 'http://ludojunction.com/api/transactions.php'
   },
   adminUrls: {
     challenges: {
-      get: 'http://localhost:80/ludoJunction/api/admin.challenges.get.php',
-      approve: 'http://localhost:80/ludoJunction/api/admin.challenge.approve.php',
+      get: 'http://ludojunction.com/api/admin.challenges.get.php',
+      approve: 'http://ludojunction.com/api/admin.challenge.approve.php',
     },
     payRequest: {
-      get: 'http://localhost:80/ludoJunction/api/admin.payReq.get.php',
-      post: 'http://localhost:80/ludoJunction/api/admin.payReq.post.php'
+      get: 'http://ludojunction.com/api/admin.payReq.get.php',
+      post: 'http://ludojunction.com/api/admin.payReq.post.php'
     }
   }
 };

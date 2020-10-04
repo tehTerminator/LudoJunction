@@ -14,6 +14,7 @@ import { SqlResponse } from '../../../shared/collection';
 export class AddBalanceComponent implements OnInit {
   amount: FormControl;
   image: string;
+  loading = false;
   @ViewChild('screenShot') screenShot: ElementRef;
 
   constructor(
@@ -42,12 +43,14 @@ export class AddBalanceComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     const request = {
       amount: this.amount.value,
       screenshot: this.image
     };
     this.http.post(environment.url.balance.payin, request)
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       console.log(res);
       this.snackBar.open(res.message[0], 'DIMISS', {duration: 5000});
       if (res.status) {

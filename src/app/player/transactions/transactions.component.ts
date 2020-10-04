@@ -12,6 +12,7 @@ import { Transaction, TransactionData } from './transaction.model';
 })
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[];
+  loading = false;
   constructor(private http: HttpClient, private as: AuthService) { }
 
   ngOnInit(): void {
@@ -19,14 +20,16 @@ export class TransactionsComponent implements OnInit {
   }
 
   onRefresh() {
+    this.loading = true;
     this.http.get(environment.url.transaction)
     .subscribe((res: SqlResponse) => {
+      this.loading = false;
       if (res.status) {
         this.transactions = [];
         res.data.forEach((t: TransactionData) => {
           this.transactions.push(new Transaction(t, this.as.userId));
         });
-        console.log(this.transactions);
+        // console.log(this.transactions);
       }
     })
   }

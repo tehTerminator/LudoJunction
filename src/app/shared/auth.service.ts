@@ -4,14 +4,13 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/user.model';
-import { HOUR, SqlResponse, UserType } from './collection';
-import { tap } from 'rxjs/operators';
+import { HOUR, MINUTE, SqlResponse, UserType } from './collection';
+import { catchError, tap } from 'rxjs/operators';
 
 interface UserData {
   id: string;
   title: string;
   mobile: string;
-  email: string;
   token: string;
   generatedOn: string;
   isAdmin: string;
@@ -35,15 +34,23 @@ export class AuthService implements OnDestroy {
     const url = environment.url.user.signIn;
     return this.http.post(url, { username, password })
       .pipe(tap((response: SqlResponse) => {
+        // console.log('Response Received', response)
         if (response.status && response.data.length === 1) {
           const userData = response.data[0];
+          // console.log('response.status ===', response.status);
           this.handleAuthentication(userData);
         } 
+      }),
+      catchError(err => {
+        // console.log(err);
+        return err;
       }));
   }
 
   private handleAuthentication(user: UserData) {
-    const generatedOn = new Date(user.generatedOn).getTime();
+    // console.log('handleAuthentication(user)', user);
+    // -7 GMT to +530 GMT Arizona to IST
+    const generatedOn = new Date(user.generatedOn).getTime() + 12 * HOUR + 30 * MINUTE;
     const now = (new Date()).getTime();
 
     if (now < generatedOn) {
@@ -61,21 +68,44 @@ export class AuthService implements OnDestroy {
       userType
     );
     this.user.next(currentUser);
+    // console.log('this.user.value', this.user.value);
     const signOutAfter = HOUR - now + generatedOn;
     clearTimeout(this.signOutTimer);
-    this.signOutTimer = setTimeout(() => this.signOut(), signOutAfter);
+    this.signOutTimer = setTimeout(() => this.confirmSignOut(), signOutAfter);
+  }
+
+  private confirmSignOut() {
+    if (confirm('Do You want to Play More.')) {
+      this.http.get(environment.url.user.revalidate)
+      .subscribe((res: SqlResponse) => {
+        if (res.status) {
+          const currentUser = this.user.value;
+          currentUser.token = res.token;
+          this.user.next(currentUser);
+          clearTimeout(this.signOutTimer);
+          this.signOutTimer = setTimeout(() => this.confirmSignOut(), HOUR - MINUTE * 5);
+        } else {
+          this.signOut();
+          console.log('Token Expired');
+        }
+      });
+    } else {
+      console.log('Token Expired');
+      this.signOut();
+    }
   }
 
   signOut(): void {
+    // console.log('Signing Out');
     this.user.next(null);
     clearInterval(this.signOutTimer);
     localStorage.clear();
     this.router.navigate(['/login']);
   }
 
-  signUp(title: string, email: string, mobile: string, password: string) {
+  signUp(title: string, mobile: string, password: string) {
     const url = environment.url.user.signUp;
-    return this.http.post(url, { title, email, mobile, password })
+    return this.http.post(url, { title, mobile, password })
   }
 
   get userId(): number {

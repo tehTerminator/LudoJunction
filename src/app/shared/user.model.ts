@@ -27,4 +27,9 @@ export class User {
     get id(): number {
         return this.theId;
     }
+
+    set token(tokenString: string) {
+        this.theToken = tokenString;
+        this.generatedOn = (new Date()).getTime();
+    }
 }

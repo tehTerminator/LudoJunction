@@ -1,3 +1,5 @@
+import { HOUR } from "../../shared/collection";
+
 export class Transaction {
     id: number;
     postedOn: Date;
@@ -7,7 +9,8 @@ export class Transaction {
 
     constructor(t: TransactionData, currentUserId: number) {
         this.id = +t.id;
-        this.postedOn = new Date(t.postedOn);
+        // Arizona Time to IST -7 GMT to +530 GMT
+        this.postedOn = new Date((new Date(t.postedOn)).getTime() + 12.5 * HOUR);
         this.description = t.description;
 
         if (+t.fromUser === currentUserId) {

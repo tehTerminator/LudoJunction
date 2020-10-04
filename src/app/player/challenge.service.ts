@@ -53,8 +53,10 @@ export class ChallengeService implements OnDestroy {
 
   onCreate(amount: number) {
     const url = environment.url.challenge.create
-    this.http.post(url, {amount})
-    .subscribe((res: SqlResponse) => {
+    return this.http.post(url, {amount})
+    .pipe(
+      tap((res: SqlResponse) => {
+      console.log(res);
       if (res.status) {
         const gr: Challenge = {
           id: res.lastInsertId,
@@ -68,7 +70,7 @@ export class ChallengeService implements OnDestroy {
         const newGameRequest = [...this.challenges.value, gr]
         this.challenges.next(newGameRequest);
       } 
-    });
+    }));
   }
 
   onUpdate(req: SqlRequest) {

@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { User } from '../../shared/user.model';
 import { AuthService } from './../../shared/auth.service';
-import { SECOND, SqlResponse, UserType } from './../../shared/collection';
+import { SqlResponse, UserType } from './../../shared/collection';
 
 @Component({
 	selector: 'app-sign-in',
@@ -11,7 +14,6 @@ import { SECOND, SqlResponse, UserType } from './../../shared/collection';
 	styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-
 	signInForm: FormGroup;
 	loading = false;
 
@@ -50,28 +52,41 @@ export class SignInComponent implements OnInit {
 		const password = this.signInForm.get('password').value;
 
 		this.authService.signIn(username, password)
-			.subscribe((res: SqlResponse) => {
+			.subscribe(
+			(res: SqlResponse) => {
 				if (res.status) {
-					setTimeout(() => this.redirect(), 2000);
+					setTimeout(() => this.redirect(), 1000);
 				} else {
 					this.loading = false;
 					this.snackBar.open('Try Again', '', {duration: 2000});
 				}	
+			},
+			err => {
+				this.loading = false;
+				this.snackBar.open('Error Occurred', 'DISMISS', {duration: 5000});
+				// console.log(err);
 			});
 	}
 
 	private redirect() {
 		this.loading = false;
-		const user = this.authService.user.value;
-		if (!!user) {
-			console.log('Logged In', user);
-			if (this.authService.userType === UserType.ADMINISTRATOR) {
-				this.router.navigate(['/admin']);
+		// console.log(this.authService);
+		this.authService.user
+		.pipe(take(1))
+		.subscribe((user: User) => {
+			// console.log('redirect()', user);
+			if (!!user) {
+				// console.log('Logged In', user);
+				if (user.type === UserType.ADMINISTRATOR) {
+					this.router.navigate(['/admin']);
+				} else {
+					this.router.navigate(['/player']);
+				}
 			} else {
-				this.router.navigate(['/player']);
+				// console.log('!!user ===', !!user);
+				// console.log('Sending Try Again Message', user);
+				this.snackBar.open('Try Again', '', {duration: 2000});
 			}
-		} else {
-			this.snackBar.open('Try Again', '', {duration: 2000});
-		}
+		})
 	}
 }
