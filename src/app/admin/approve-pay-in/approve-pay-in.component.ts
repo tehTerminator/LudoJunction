@@ -52,6 +52,13 @@ export class ApprovePayInComponent implements OnInit {
   onReject = () => this.onUpdateReq(this.request.id, 'REJECTED');
 
   private onUpdateReq(id: number, state: string) {
+    const confirmMessage = `Do you want to ${state} Request #${id}`;
+    const confirmRequest = confirm(confirmMessage);
+
+    if (!confirmRequest) {
+      return;
+    }
+
     const reqType = 'PAYIN';
     this.loading = true;
     this.http.post(

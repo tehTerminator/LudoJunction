@@ -75,6 +75,13 @@ export class GamesPageComponent implements OnInit {
   onReject = () => this.setState(this.challenge.id, 'REJECT');
 
   private setState(id: number, state: string) {
+    const confirmMessage = `Do You Really Want to ${state} Challenge #${id}`;
+    const confirmRequest = confirm(confirmMessage);
+
+    if (!confirmRequest) {
+      return;
+    }
+    
     this.loading = true;
     this.http
     .post(environment.adminUrls.challenges.approve, {id, state})
@@ -85,7 +92,7 @@ export class GamesPageComponent implements OnInit {
         this.onRefresh();
       }
       this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
-    })
+    });
   }
 
 }

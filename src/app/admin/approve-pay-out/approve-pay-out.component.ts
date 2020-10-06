@@ -55,6 +55,13 @@ export class ApprovePayOutComponent implements OnInit {
   onReject = () => this.onUpdateReq(this.request.id, 'REJECTED');
 
   private onUpdateReq(id: number, state: string) {
+    const confirmMessage = `Do you want to ${state} Request #${id}`;
+    const confirmRequest = confirm(confirmMessage);
+
+    if (!confirmRequest) {
+      return;
+    }
+
     const reqType = 'PAYOUT';
     this.loading = true;
     const screenshot = this.request.screenshot;
@@ -65,7 +72,7 @@ export class ApprovePayOutComponent implements OnInit {
       {id, state, reqType, screenshot, comment }
     )
     .subscribe((res: SqlResponse) => {
-      this.loading = false;
+      this.loading = false; 
       console.log(res);
       if (res.status) {
         this.onRefresh();
