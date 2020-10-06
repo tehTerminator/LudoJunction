@@ -1,0 +1,13 @@
+.list-group-action>a.list-group-item {
+    text-decoration: none;
+    font-size: large;
+}
+
+a.list-group-item:hover,
+a.list-group-item:active {
+    background: #e5e5e5;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
+    outline: none;
+}

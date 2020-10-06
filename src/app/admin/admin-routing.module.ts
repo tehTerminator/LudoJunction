@@ -6,6 +6,7 @@ import { ApprovePayInComponent } from './approve-pay-in/approve-pay-in.component
 import { ApprovePayOutComponent } from './approve-pay-out/approve-pay-out.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { AdminComponent } from './admin.component';
+import { ApprovePageComponent} from './approve-page/approve-page.component';
 
 const routes: Routes = [
   { 
@@ -16,13 +17,16 @@ const routes: Routes = [
         path: 'dashboard', component: DashboardComponent,
       },
       {
-        path: 'approveGames', component: GamesPageComponent,
+        path: 'approve', component: ApprovePageComponent,
       },
       {
-        path: 'pay-in', component: ApprovePayInComponent,
+        path: 'approve/games', component: GamesPageComponent,
       },
       {
-        path: 'pay-out', component: ApprovePayOutComponent,
+        path: 'approve/pay-in', component: ApprovePayInComponent,
+      },
+      {
+        path: 'approve/pay-out', component: ApprovePayOutComponent,
       },
       {
         path: 'transactions', component: TransactionsComponent,

@@ -4,10 +4,34 @@ import { AuthService } from '../shared/auth.service';
 import { UserType } from '../shared/collection';
 import { User } from '../shared/user.model';
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        height: '*',
+      })),
+      state('closed', style({
+        height: '58px',
+      })),
+      transition('open => closed', [
+        animate('0.5s')
+      ]),
+      transition('closed => open', [
+        animate('0.5s')
+      ])
+    ])
+  ]
 })
 export class NavBarComponent implements OnInit, OnDestroy {
   title = 'Ludo Junction';

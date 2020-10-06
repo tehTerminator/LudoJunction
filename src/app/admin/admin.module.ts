@@ -12,10 +12,11 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ApprovePageComponent } from './approve-page/approve-page.component';
 
 
 @NgModule({
-  declarations: [AdminComponent, DashboardComponent, InfoCardComponent, GamesPageComponent, ApprovePayInComponent, ApprovePayOutComponent, TransactionsComponent],
+  declarations: [AdminComponent, DashboardComponent, InfoCardComponent, GamesPageComponent, ApprovePayInComponent, ApprovePayOutComponent, TransactionsComponent, ApprovePageComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
