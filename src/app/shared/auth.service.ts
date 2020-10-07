@@ -22,7 +22,7 @@ interface UserData {
 export class AuthService implements OnDestroy {
 
   public user: BehaviorSubject<User> = new BehaviorSubject(null);
-  private signOutTimer = null;
+  private tokenTimer = null;
 
   constructor(
     private http: HttpClient,
@@ -50,7 +50,8 @@ export class AuthService implements OnDestroy {
   private handleAuthentication(user: UserData) {
     // console.log('handleAuthentication(user)', user);
     // -7 GMT to +530 GMT Arizona to IST
-    const generatedOn = new Date(user.generatedOn).getTime() + 12 * HOUR + 30 * MINUTE;
+    // const generatedOn = new Date(user.generatedOn).getTime() + 12 * HOUR + 30 * MINUTE;
+    const generatedOn = new Date(user.generatedOn).getTime();
     const now = (new Date()).getTime();
 
     if (now < generatedOn) {
@@ -70,42 +71,37 @@ export class AuthService implements OnDestroy {
     this.user.next(currentUser);
     // console.log('this.user.value', this.user.value);
     const signOutAfter = HOUR - now + generatedOn;
-    clearTimeout(this.signOutTimer);
-    this.signOutTimer = setTimeout(() => this.confirmSignOut(), signOutAfter);
+    clearTimeout(this.tokenTimer);
+    this.tokenTimer = setTimeout(() => this.refreshToken(), signOutAfter);
   }
 
-  private confirmSignOut() {
-    if (confirm('Do You want to Play More.')) {
-      this.http.get(environment.url.user.revalidate)
-      .subscribe((res: SqlResponse) => {
-        if (res.status) {
-          const currentUser = this.user.value;
-          currentUser.token = res.token;
-          this.user.next(currentUser);
-          clearTimeout(this.signOutTimer);
-          this.signOutTimer = setTimeout(() => this.confirmSignOut(), HOUR - MINUTE * 5);
-        } else {
-          this.signOut();
-          console.log('Token Expired');
-        }
-      });
-    } else {
-      console.log('Token Expired');
-      this.signOut();
-    }
+  private refreshToken() {
+    this.http.get(environment.url.user.revalidate)
+    .subscribe((res: SqlResponse) => {
+      if (res.status) {
+        const currentUser = this.user.value;
+        currentUser.token = res.token;
+        this.user.next(currentUser);
+        clearTimeout(this.tokenTimer);
+        this.tokenTimer = setTimeout(() => this.refreshToken(), HOUR - MINUTE * 5);
+      } else {
+        this.signOut();
+        console.log('Token Expired');
+      }
+    });
   }
 
   signOut(): void {
     // console.log('Signing Out');
     this.user.next(null);
-    clearInterval(this.signOutTimer);
+    clearInterval(this.tokenTimer);
     localStorage.clear();
     this.router.navigate(['/login']);
   }
 
-  signUp(title: string, mobile: string, password: string) {
+  signUp(title: string, mobile: string, password: string, referrer: string) {
     const url = environment.url.user.signUp;
-    return this.http.post(url, { title, mobile, password })
+    return this.http.post(url, { title, mobile, password, referrer })
   }
 
   get userId(): number {
@@ -138,7 +134,7 @@ export class AuthService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    clearTimeout(this.signOutTimer);
+    clearTimeout(this.tokenTimer);
   }
 
 }

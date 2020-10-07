@@ -33,7 +33,8 @@ export class SignUpComponent implements OnInit {
 				Validators.required,
 				Validators.pattern("^[6-9][0-9]{9}$"),
 			], this.validatorMobileNotAvailable.bind(this)],
-			agree: [null, Validators.requiredTrue]
+			agree: [null, Validators.requiredTrue],
+			referrer: ['', [], this.validatorReferrerAvailable.bind(this)]
 		});
 	}
 
@@ -53,6 +54,10 @@ export class SignUpComponent implements OnInit {
 		return this.signUpForm.get('mobile') as FormControl;
 	}
 
+	get referrer(): FormControl {
+		return this.signUpForm.get('referrer') as FormControl;
+	}
+
 	get agree(): FormControl {
 		return this.signUpForm.get('agree') as FormControl
 	}
@@ -65,9 +70,10 @@ export class SignUpComponent implements OnInit {
 		const title = this.title.value;
 		const password = this.password.value;
 		const mobile = this.mobile.value;
+		const referrer = this.referrer.value;
 		this.loading = true;
 
-		this.authService.signUp(title, mobile, password)
+		this.authService.signUp(title, mobile, password, referrer)
 			.subscribe((res: SqlResponse) => {
 				console.log(res);
 				this.loading = false;
@@ -86,12 +92,30 @@ export class SignUpComponent implements OnInit {
 		const promise = new Promise<ValidationErrors | null>((resolve, rejects) => {
 			this.http.post(environment.url.user.select, { andWhere: { mobile: control.value } })
 				.subscribe((res: SqlResponse) => {
-					console.log(res);
 					if (res.data.length > 0) {
 						const error: ValidationErrors = { mobileIsNotAvailable: true }
 						resolve(error);
 					} else {
 						resolve(null);
+					}
+				})
+		});
+		return promise;
+	}
+
+	validatorReferrerAvailable(control: FormControl): Promise<ValidationErrors|null> | Observable<ValidationErrors|null>{
+		const promise = new Promise<ValidationErrors | null>((resolve, rejects) => {
+			if (control.value === '') {
+				resolve(null);
+			}
+
+			this.http.post(environment.url.user.select, { andWhere: { mobile: control.value } })
+				.subscribe((res: SqlResponse) => {
+					if (res.data.length > 0) {
+						resolve(null);
+					} else {
+						const error: ValidationErrors = { referrerNotAvailable: true }
+						resolve(error);
 					}
 				})
 		});

@@ -6,7 +6,7 @@
             <mat-label>
                 Mobile
             </mat-label>
-            <input matInput type="tel" name="mobile" formControlName="mobile" />
+            <input matInput type="tel" name="mobile" formControlName="mobile" required />
             <mat-error *ngIf="mobile.hasError('required')">Please Provide Mobile Number.</mat-error>
             <mat-error *ngIf="mobile.hasError('pattern')">Invalid Mobile Number.</mat-error>
             <mat-error *ngIf="mobile.hasError('mobileIsNotAvailable')">Mobile Already Registered.</mat-error>
@@ -14,7 +14,7 @@
 
         <mat-form-field class="d-block mt-3">
             <mat-label>Full Name</mat-label>
-            <input matInput type="text" name="title" formControlName="title" />
+            <input matInput type="text" name="title" formControlName="title" required />
             <mat-error *ngIf="title.touched && !title.valid">
                 Please Enter Your Full Name
             </mat-error>
@@ -22,9 +22,17 @@
 
         <mat-form-field class="d-block mt-3">
             <mat-label>Password</mat-label>
-            <input matInput type="text" name="password" formControlName="password" />
+            <input matInput type="text" name="password" formControlName="password" required />
             <mat-error *ngIf="!password.valid && password.touched">
                 Please Enter Password
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="d-block mt-3">
+            <mat-label>Referrer</mat-label>
+            <input matInput type="text" name="referrer" formControlName="referrer" />
+            <mat-error *ngIf="referrer.hasError('referrerNotAvailable')">
+                Invalid Referrer.
             </mat-error>
         </mat-form-field>
     </section>
