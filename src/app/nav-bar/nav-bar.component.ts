@@ -22,13 +22,13 @@ import {
         height: '*',
       })),
       state('closed', style({
-        height: '58px',
+        height: '0px',
       })),
       transition('open => closed', [
-        animate('0.5s')
+        animate('0.3s')
       ]),
       transition('closed => open', [
-        animate('0.5s')
+        animate('0.3s')
       ])
     ])
   ]

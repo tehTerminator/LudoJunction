@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" [@openClose]="navbarCollapsed?'closed':'open'">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="navbar-brand">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dice-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -18,7 +18,8 @@
     <button class="navbar-toggler" type="button" aria-label="Toggle navigation" (click)="toggleNavBar()">
         <mat-icon>menu</mat-icon>
     </button>
-    <div class="navbar-collapse" [ngClass]="navbarCollapsed ? 'collapse' : ''">
+    <!-- <div class="navbar-collapse" [ngClass]="navbarCollapsed ? 'collapse' : ''"> -->
+    <div class="navbar-collapse" [@openClose]="navbarCollapsed?'closed':'open'">
         <app-user-nav *ngIf="isLoggedIn && isPlayer"></app-user-nav>
         <app-admin-nav *ngIf="isLoggedIn && isAdmin"></app-admin-nav>
         <ul class="navbar-nav ml-auto">

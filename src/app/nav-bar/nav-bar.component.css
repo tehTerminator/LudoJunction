@@ -2,4 +2,7 @@
     .nav-item {
         text-align: center;
     }
+    .navbar-collapse {
+        overflow: hidden;
+    }
 }
