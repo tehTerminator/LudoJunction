@@ -55,10 +55,10 @@ export class SignInComponent implements OnInit {
 			.subscribe(
 			(res: SqlResponse) => {
 				if (res.status) {
-					setTimeout(() => this.redirect(), 1000);
+					setTimeout(() => this.redirect(), 500);
 				} else {
 					this.loading = false;
-					this.snackBar.open('Try Again', '', {duration: 2000});
+					this.snackBar.open(res.message[0], 'DISMISS', {duration: 2000});
 				}	
 			},
 			err => {

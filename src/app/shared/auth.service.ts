@@ -50,8 +50,8 @@ export class AuthService implements OnDestroy {
   private handleAuthentication(user: UserData) {
     // console.log('handleAuthentication(user)', user);
     // -7 GMT to +530 GMT Arizona to IST
-    // const generatedOn = new Date(user.generatedOn).getTime() + 12 * HOUR + 30 * MINUTE;
-    const generatedOn = new Date(user.generatedOn).getTime();
+    const generatedOn = new Date(user.generatedOn).getTime() + 12 * HOUR + 30 * MINUTE;
+    // const generatedOn = new Date(user.generatedOn).getTime();
     const now = (new Date()).getTime();
 
     if (now < generatedOn) {

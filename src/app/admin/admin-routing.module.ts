@@ -7,6 +7,7 @@ import { ApprovePayOutComponent } from './approve-pay-out/approve-pay-out.compon
 import { TransactionsComponent } from './transactions/transactions.component';
 import { AdminComponent } from './admin.component';
 import { ApprovePageComponent} from './approve-page/approve-page.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component'
 
 const routes: Routes = [
   { 
@@ -27,6 +28,9 @@ const routes: Routes = [
       },
       {
         path: 'approve/pay-out', component: ApprovePayOutComponent,
+      },
+      {
+        path: 'user/reset', component: ResetPasswordComponent
       },
       {
         path: 'transactions', component: TransactionsComponent,

@@ -2,7 +2,7 @@
     <h2>Register Yourself</h2>
     <hr>
     <section>
-        <mat-form-field class="d-block mt-3">
+        <mat-form-field class="d-block mt-3" appearance="fill">
             <mat-label>
                 Mobile
             </mat-label>
@@ -12,7 +12,7 @@
             <mat-error *ngIf="mobile.hasError('mobileIsNotAvailable')">Mobile Already Registered.</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="d-block mt-3">
+        <mat-form-field class="d-block mt-3" appearance="fill">
             <mat-label>Full Name</mat-label>
             <input matInput type="text" name="title" formControlName="title" required />
             <mat-error *ngIf="title.touched && !title.valid">
@@ -20,7 +20,7 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="d-block mt-3">
+        <mat-form-field class="d-block mt-3" appearance="fill">
             <mat-label>Password</mat-label>
             <input matInput type="text" name="password" formControlName="password" required />
             <mat-error *ngIf="!password.valid && password.touched">
@@ -28,7 +28,7 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="d-block mt-3">
+        <mat-form-field class="d-block mt-3" appearance="fill">
             <mat-label>Referrer</mat-label>
             <input matInput type="text" name="referrer" formControlName="referrer" />
             <mat-error *ngIf="referrer.hasError('referrerNotAvailable')">

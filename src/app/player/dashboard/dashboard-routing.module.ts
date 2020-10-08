@@ -8,8 +8,8 @@ import { PayoutComponent } from './payout/payout.component';
 const routes: Routes = [
   { path: '', component: DashboardComponent, children: [
     { path: 'balance', component: ShowBalanceComponent },
-    { path: 'payin', component: AddBalanceComponent },
-    { path: 'payout', component: PayoutComponent },
+    { path: 'pay-in', component: AddBalanceComponent },
+    { path: 'pay-out', component: PayoutComponent },
     { path: '**', redirectTo: 'balance', pathMatch: 'full'}
   ]},
 ];
