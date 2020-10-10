@@ -2,12 +2,12 @@
     <div class="row justify-content-center">
         <div class="col-lg-4 col-md-6">
             <div class="card" [ngClass]="loading ? 'loading' : ''">
-                <div class="card-body">
-                    <h4>Request Payout</h4>
-                    <p>Instructions : Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, veniam aspernatur sapiente delectus necessitatibus facilis ullam officia corporis velit doloremque qui consectetur illo exercitationem laudantium veritatis
-                        harum. Vero, tenetur esse.</p>
+                <h1 class="card-header text-center">Sell Chips</h1>
+                <form class="card-body" [formGroup]="payoutForm" (ngSubmit)="onSubmit()">
+                    <p class="text-center">(1 Chip = 1 Rupee)</p>
+                    <p class="text-center">Processing Time 12:00 PM</p>
                     <mat-form-field appearance="outline" class="d-block w-100 mb-3">
-                        <mat-label>Amount</mat-label>
+                        <mat-label>Chips</mat-label>
                         <input matInput type="number" name="amount" [formControl]="amount" required>
                         <mat-error *ngIf="amount.errors && amount.errors.required">
                             Please Enter an Amount.
@@ -17,10 +17,18 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <button class="w-100" type="button" mat-stroked-button color="primary" (click)="onSubmit()">
+                    <div class="form-check mt-3">
+                        <input type="checkbox" name="agree" class="form-check-input" formControlName="agree">
+                        <label for="agree" class="form-check-label text-justify" [ngClass]="agree.touched && !agree.valid ? 'text-danger' : ''">
+                            I Agree that I am 18 years or older and not a resident of Telangana, Assam, Orissa, Kerala, Sikkim or
+                            Nagaland.
+                        </label>
+                    </div>
+
+                    <button class="btn w-100 mt-3" type="submit" mat-raised-button color="primary" [disabled]="payoutForm.invalid">
                         Send Withdrawal Request
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     </div>

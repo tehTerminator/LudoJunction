@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../../../environments/environment';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./payout.component.css']
 })
 export class PayoutComponent implements OnInit {
-  amount: FormControl;
+  payoutForm: FormGroup;
   loading = false;
 
   constructor(
@@ -22,7 +22,10 @@ export class PayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.amount = new FormControl(0, [Validators.required, Validators.min(10)]);
+    this.payoutForm = new FormGroup({
+      amount: new FormControl(0, [Validators.required, Validators.min(10)]),
+      agree: new FormControl(false, Validators.requiredTrue)
+    });
   }
 
   onSubmit() { 
@@ -39,6 +42,14 @@ export class PayoutComponent implements OnInit {
         this.router.navigate(['/player', 'dashboard', 'balance']);
       }
     })
+  }
+
+  get amount(): FormControl {
+    return this.payoutForm.get('amount') as FormControl;
+  }
+
+  get agree(): FormControl {
+    return this.payoutForm.get('agree') as FormControl;
   }
 
 }
