@@ -44,7 +44,7 @@
 
         <mat-form-field class="d-block mt-3" appearance="fill">
             <mat-label>Referrer</mat-label>
-            <input matInput type="text" name="referrer" formControlName="referrer" />
+            <input matInput type="text" name="referrer" formControlName="referrer" [attr.disabled]="readOnlyReferrer" />
             <mat-error *ngIf="referrer.hasError('referrerNotAvailable')">
                 Invalid Referrer.
             </mat-error>

@@ -15,6 +15,8 @@ import { ChallengeResultPageComponent } from './challenge-result-page/challenge-
 import { ChallengeService } from './challenge.service';
 import { PlayComponent } from './play/play.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ReferEarnPageComponent } from './refer-earn-page/refer-earn-page.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 @NgModule({
@@ -27,14 +29,16 @@ import { MatButtonModule } from '@angular/material/button';
     ChallengeListItemComponent,
     MyChallengeListComponent,
     ChallengeResultPageComponent,
-    PlayComponent
+    PlayComponent,
+    ReferEarnPageComponent
   ],
   imports: [
     CommonModule,
     PlayerRoutingModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+		ClipboardModule
   ],
   providers: [ChallengeService]
 })

@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PlayerGuard } from './player/player.guard';
 import { AdminGuard } from './admin/admin.guard';
+import { LoginGuard } from './shared/login.guard';
 import { TermsPageComponent } from './terms-page/terms-page.component';
 
 
 const routes: Routes = [
   { 
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule) 
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+		canActivate: [LoginGuard]
   }, 
   { 
     path: 'player', 

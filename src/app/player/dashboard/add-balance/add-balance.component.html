@@ -22,7 +22,7 @@
                     <div class="input-group w-100 mb-3">
                         <input class="form-control text-center" type="text" name="payee" formControlName="payee">
                         <div class="input-group-append">
-                            <button type="button" class="btn btn-outline-secondary" [cdkCopyToClipboard]="payee" (click)="onCopy()">Copy</button>
+                            <button type="button" class="btn btn-outline-secondary" [cdkCopyToClipboard]="payee.value" (click)="onCopy()">Copy</button>
                         </div>
                     </div>
 

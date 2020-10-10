@@ -15,6 +15,7 @@ import { SqlRequest, SqlResponse } from '../../shared/collection';
 })
 export class SignUpComponent implements OnInit {
 	signUpForm: FormGroup;
+	readOnlyReferrer = false;
 	loading = false;
 
 	constructor(
@@ -43,8 +44,7 @@ export class SignUpComponent implements OnInit {
 				const referrerMobile = params['referrer'];
 				if (referrerMobile !== undefined) {
 					this.signUpForm.patchValue({referrer: referrerMobile});
-					this.referrer.disable();
-					console.log(params);
+					this.readOnlyReferrer = true;
 				}
 			}
 		)
