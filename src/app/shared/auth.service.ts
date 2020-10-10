@@ -8,12 +8,15 @@ import { HOUR, MINUTE, SqlResponse, UserType } from './collection';
 import { catchError, tap } from 'rxjs/operators';
 
 interface UserData {
-  id: string;
+  id?: string;
   title: string;
   mobile: string;
-  token: string;
-  generatedOn: string;
-  isAdmin: string;
+  email: string;
+  password?: string;
+  token?: string;
+  generatedOn?: string;
+  isAdmin?: string;
+  referrer?: string;
 }
 
 @Injectable({
@@ -22,7 +25,7 @@ interface UserData {
 export class AuthService implements OnDestroy {
 
   public user: BehaviorSubject<User> = new BehaviorSubject(null);
-  private tokenTimer = null;
+  // private tokenTimer = null;
 
   constructor(
     private http: HttpClient,
@@ -70,9 +73,6 @@ export class AuthService implements OnDestroy {
     );
     this.user.next(currentUser);
     // console.log('this.user.value', this.user.value);
-    const signOutAfter = HOUR - now + generatedOn;
-    clearTimeout(this.tokenTimer);
-    this.tokenTimer = setTimeout(() => this.refreshToken(), signOutAfter);
   }
 
   private refreshToken() {
@@ -82,11 +82,11 @@ export class AuthService implements OnDestroy {
         const currentUser = this.user.value;
         currentUser.token = res.token;
         this.user.next(currentUser);
-        clearTimeout(this.tokenTimer);
-        this.tokenTimer = setTimeout(() => this.refreshToken(), HOUR - MINUTE * 5);
+        // clearTimeout(this.tokenTimer);
+        // this.tokenTimer = setTimeout(() => this.refreshToken(), HOUR - MINUTE * 5);
       } else {
         this.signOut();
-        console.log('Token Expired');
+        console.log('Token Expired', res);
       }
     });
   }
@@ -94,14 +94,14 @@ export class AuthService implements OnDestroy {
   signOut(): void {
     // console.log('Signing Out');
     this.user.next(null);
-    clearInterval(this.tokenTimer);
+    // clearInterval(this.tokenTimer);
     localStorage.clear();
     this.router.navigate(['/login']);
   }
 
-  signUp(title: string, mobile: string, password: string, referrer: string) {
+  signUp(userData: UserData) {
     const url = environment.url.user.signUp;
-    return this.http.post(url, { title, mobile, password, referrer })
+    return this.http.post(url, userData);
   }
 
   get userId(): number {
@@ -134,7 +134,8 @@ export class AuthService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    clearTimeout(this.tokenTimer);
+    // clearTimeout(this.tokenTimer);
+    console.log('Not Implemented');
   }
 
 }
