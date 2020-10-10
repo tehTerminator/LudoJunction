@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../shared/auth.service';
-import { SqlResponse } from '../../shared/collection';
+import { SqlRequest, SqlResponse } from '../../shared/collection';
 
 @Component({
 	selector: 'app-sign-up',
@@ -18,10 +18,10 @@ export class SignUpComponent implements OnInit {
 	loading = false;
 
 	constructor(
+		private http: HttpClient,
 		private fb: FormBuilder,
 		private authService: AuthService,
 		private router: Router,
-		private http: HttpClient,
 		private snackBar: MatSnackBar
 	) { }
 
@@ -32,9 +32,10 @@ export class SignUpComponent implements OnInit {
 			mobile: ['', [
 				Validators.required,
 				Validators.pattern("^[6-9][0-9]{9}$"),
-			], this.validatorMobileNotAvailable.bind(this)],
+			], this.isAvailableValidator.bind(this)],
+			email: ['', Validators.email, this.isAvailableValidator.bind(this)],
 			agree: [null, Validators.requiredTrue],
-			referrer: ['', [], this.validatorReferrerAvailable.bind(this)]
+			referrer: ['', [], this.isNotAvailableValidator.bind(this)]
 		});
 	}
 
@@ -62,18 +63,25 @@ export class SignUpComponent implements OnInit {
 		return this.signUpForm.get('agree') as FormControl
 	}
 
+	getControlName(c: AbstractControl): string {
+		const formGroup = c.parent.controls;
+		return Object.keys(formGroup).find(name => c === formGroup[name]);
+	}
+
 	onSubmit() {
 		if (this.signUpForm.invalid) {
 			return;
 		}
 
-		const title = this.title.value;
-		const password = this.password.value;
-		const mobile = this.mobile.value;
-		const referrer = this.referrer.value;
+		const userData = {
+			title:  this.title.value,
+			password:  this.password.value,
+			mobile:  this.mobile.value,
+			referrer:  this.referrer.value,
+			email:  this.email.value,
+		}
 		this.loading = true;
-
-		this.authService.signUp(title, mobile, password, referrer)
+		this.authService.signUp(userData)
 			.subscribe((res: SqlResponse) => {
 				console.log(res);
 				this.loading = false;
@@ -88,12 +96,16 @@ export class SignUpComponent implements OnInit {
 			});
 	}
 
-	validatorMobileNotAvailable(control: FormControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-		const promise = new Promise<ValidationErrors | null>((resolve, rejects) => {
-			this.http.post(environment.url.user.select, { andWhere: { mobile: control.value } })
+	isAvailableValidator(control: AbstractControl)
+	: Promise<ValidationErrors | null> 
+	| Observable<ValidationErrors | null>  {
+		const promise = new Promise<ValidationErrors | null>((resolve) => {
+			const req: SqlRequest = {andWhere: {}};
+			req.andWhere[this.getControlName(control)] = control.value;
+			this.http.post(environment.url.user.select, req)
 				.subscribe((res: SqlResponse) => {
 					if (res.data.length > 0) {
-						const error: ValidationErrors = { mobileIsNotAvailable: true }
+						const error: ValidationErrors = { isNotAvailable: true }
 						resolve(error);
 					} else {
 						resolve(null);
@@ -103,13 +115,15 @@ export class SignUpComponent implements OnInit {
 		return promise;
 	}
 
-	validatorReferrerAvailable(control: FormControl): Promise<ValidationErrors|null> | Observable<ValidationErrors|null>{
-		const promise = new Promise<ValidationErrors | null>((resolve, rejects) => {
+	isNotAvailableValidator(control: AbstractControl)
+	: Promise<ValidationErrors | null> 
+	| Observable<ValidationErrors | null> {
+		const promise = new Promise<ValidationErrors | null>((resolve) => {
 			if (control.value === '') {
 				resolve(null);
 			}
-
-			this.http.post(environment.url.user.select, { andWhere: { mobile: control.value } })
+			const req: SqlRequest = {andWhere: {mobile: control.value}};
+			this.http.post(environment.url.user.select, req)
 				.subscribe((res: SqlResponse) => {
 					if (res.data.length > 0) {
 						resolve(null);
@@ -121,6 +135,4 @@ export class SignUpComponent implements OnInit {
 		});
 		return promise;
 	}
-
-
 }
