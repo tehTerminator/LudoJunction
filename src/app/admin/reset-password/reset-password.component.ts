@@ -69,6 +69,7 @@ export class ResetPasswordComponent implements OnInit {
     this.http.post(environment.url.user.reset, {mobile, password})
     .pipe(
       catchError((error) => {
+        console.log(error);
         this.loading = false;
         this.pageState = PageState.ASK_PASSWORD;
         throw 'Server Error'
