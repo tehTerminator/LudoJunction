@@ -2,11 +2,29 @@
     <div class="row justify-content-center">
         <div class="col-lg-4 col-md-6 mb-3">
             <div class="card">
+                <h1 class="card-header text-center">Buy Chips</h1>
                 <div class="card-body">
-                    <div class="h4">Request</div>
-                    <p>Instructions : Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid sed, esse dolor sint rerum est! Tenetur ipsam aspernatur labore assumenda eveniet libero, explicabo consequatur, ea cum, perferendis obcaecati molestiae
-                        suscipit?
-                    </p>
+                    <section class="text-center">
+                        <p>
+                            1 Rupee = 1 Chip
+                        </p>
+                        <p>
+                            Pay Via PayTM Wallet Only.
+                        </p>
+                        <p>
+                            Don't Pay through Bank, you will lose your money.
+                        </p>
+                        <p>
+                            Pay at this number only.
+                        </p>
+                    </section>
+
+                    <div class="input-group w-100 mb-3">
+                        <input class="form-control text-center" type="text" name="payee" value="9111736529" [(ngModel)]="payee" readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" [cdkCopyToClipboard]="payee">Copy</button>
+                        </div>
+                    </div>
 
                     <mat-form-field class="d-block w-100 mb-3" appearance="fill">
                         <mat-label>

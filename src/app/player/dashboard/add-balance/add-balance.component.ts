@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { SqlResponse } from '../../../shared/collection';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-add-balance',
@@ -14,10 +15,12 @@ import { SqlResponse } from '../../../shared/collection';
 export class AddBalanceComponent implements OnInit {
   amount: FormControl;
   image: string;
+  payee = "9111736529";
   loading = false;
   @ViewChild('screenShot') screenShot: ElementRef;
 
   constructor(
+    private clipboard: Clipboard,
     private http: HttpClient, 
     private snackBar: MatSnackBar,
     private router: Router
