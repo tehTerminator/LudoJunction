@@ -3,7 +3,7 @@
         <div class="col-lg-4 col-md-6 mb-3">
             <div class="card">
                 <h1 class="card-header text-center">Buy Chips</h1>
-                <div class="card-body">
+                <form class="card-body" [formGroup]="payInForm" (ngSubmit)="onSubmit()">
                     <section class="text-center">
                         <p>
                             1 Rupee = 1 Chip
@@ -20,9 +20,9 @@
                     </section>
 
                     <div class="input-group w-100 mb-3">
-                        <input class="form-control text-center" type="text" name="payee" value="9111736529" [(ngModel)]="payee" readonly>
+                        <input class="form-control text-center" type="text" name="payee" formControlName="payee">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" [cdkCopyToClipboard]="payee">Copy</button>
+                            <button class="btn btn-outline-secondary" [cdkCopyToClipboard]="payee" (click)="onCopy()">Copy</button>
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@
                         <mat-label>
                             Enter Amount
                         </mat-label>
-                        <input matInput type="number" min="100" step="10" [formControl]="amount" required>
+                        <input matInput type="number" min="100" step="10" formControlName="amount" required>
                         <mat-error *ngIf="amount.errors && amount.errors.required">
                             Please Enter Amount.
                         </mat-error>
@@ -41,13 +41,13 @@
 
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile04" #screenShot (change)="onImageSelected()" accept="image/*">
+                            <input type="file" class="custom-file-input" id="inputGroupFile04" #screenShot (change)="onImageSelected()" formControlName="screenshot" accept="image/*">
                             <label class="custom-file-label" for="inputGroupFile04">Attach Screenshot</label>
                         </div>
                     </div>
 
-                    <button (click)="onSubmit()" type="submit" mat-stroked-button color="primary" class="d-block w-100 mt-3">Send Request</button>
-                </div>
+                    <button (click)="onSubmit()" type="submit" mat-raised-button color="primary" class="d-block w-100 mt-3">Send Request</button>
+                </form>
             </div>
         </div>
         <div class="col-lg-8 col-md-6" *ngIf="image">

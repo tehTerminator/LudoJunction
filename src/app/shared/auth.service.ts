@@ -37,7 +37,7 @@ export class AuthService implements OnDestroy {
     const url = environment.url.user.signIn;
     return this.http.post(url, { username, password })
       .pipe(tap((response: SqlResponse) => {
-        // console.log('Response Received', response)
+        console.log('Response Received', response)
         if (response.status && response.data.length === 1) {
           const userData = response.data[0];
           // console.log('response.status ===', response.status);
@@ -92,7 +92,7 @@ export class AuthService implements OnDestroy {
   }
 
   signOut(): void {
-    // console.log('Signing Out');
+    console.log('Signing Out');
     this.user.next(null);
     // clearInterval(this.tokenTimer);
     localStorage.clear();
