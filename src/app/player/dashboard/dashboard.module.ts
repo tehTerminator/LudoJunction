@@ -6,8 +6,9 @@ import { ShowBalanceComponent } from './show-balance/show-balance.component';
 import { AddBalanceComponent } from './add-balance/add-balance.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PayoutComponent } from './payout/payout.component';
+import { ClipboardModule } from "@angular/cdk/clipboard";
 
 @NgModule({
     declarations: [DashboardComponent, ShowBalanceComponent, AddBalanceComponent, PayoutComponent],
@@ -16,7 +17,9 @@ import { PayoutComponent } from './payout/payout.component';
         DashboardRoutingModule,
         ReactiveFormsModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        ClipboardModule,
+        FormsModule
     ]
 })
 export class DashboardModule { }
