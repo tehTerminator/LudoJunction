@@ -22,7 +22,7 @@
                     <div class="input-group w-100 mb-3">
                         <input class="form-control text-center" type="text" name="payee" formControlName="payee">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" [cdkCopyToClipboard]="payee" (click)="onCopy()">Copy</button>
+                            <button type="button" class="btn btn-outline-secondary" [cdkCopyToClipboard]="payee" (click)="onCopy()">Copy</button>
                         </div>
                     </div>
 
@@ -46,7 +46,13 @@
                         </div>
                     </div>
 
-                    <button (click)="onSubmit()" type="submit" mat-raised-button color="primary" class="d-block w-100 mt-3">Send Request</button>
+                    <button 
+											[disabled]="payInForm.invalid"
+											type="submit" 
+											mat-raised-button 
+											color="primary" 
+											class="d-block w-100 mt-3">
+											Send Request</button>
                 </form>
             </div>
         </div>
