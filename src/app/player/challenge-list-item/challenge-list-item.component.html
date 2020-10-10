@@ -8,7 +8,7 @@
         Accept
     </button>
 
-    <button class="btn btn-danger d-block mt-3 w-100" *ngIf="isMine() && !isActive()" (click)="onReject()">
+    <button class="btn btn-danger d-block mt-3 w-100" *ngIf="!isActive()" (click)="onReject()">
         Reject
     </button>
 
