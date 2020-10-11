@@ -16,6 +16,7 @@ import { ForgotPasswordPageComponent } from './forgot-password-page/forgot-passw
 
 @NgModule({
   declarations: [LoginComponent, SignInComponent, SignUpComponent, ActivateUserComponent, ForgotPasswordPageComponent],
+  // declarations: [LoginComponent, SignInComponent, SignUpComponent, ActivateUserComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,

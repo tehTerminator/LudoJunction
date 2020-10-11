@@ -16,7 +16,7 @@ const routes: Routes = [
 				{ path: 'activate/:id', component: ActivateUserComponent },
 				{ path: 'forgot', component: ForgotPasswordPageComponent },
 				{ path: '**', redirectTo: 'signIn', pathMatch: 'full' },
-			],
+			], 
 	},
 ];
 

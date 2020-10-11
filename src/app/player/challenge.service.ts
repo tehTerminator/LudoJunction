@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, EMPTY, empty } from 'rxjs';
-import { Challenge, SECOND, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
+import { Challenge, MINUTE, SECOND, SqlObject, SqlRequest, SqlResponse, State } from '../shared/collection';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/auth.service';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { isDevMode } from '@angular/core';
 
 @Injectable()
 export class ChallengeService implements OnDestroy {
@@ -20,7 +21,8 @@ export class ChallengeService implements OnDestroy {
   }
 
   start() {
-    this.ticker = setInterval(() => this.onRefresh(), SECOND * 30);
+    const refreshInterval = isDevMode() ? MINUTE : SECOND * 10;
+    this.ticker = setInterval(() => this.onRefresh(), refreshInterval);
     this.onRefresh();
   }
 
@@ -48,6 +50,7 @@ export class ChallengeService implements OnDestroy {
         })
       });
       this.challenges.next(newList);
+      console.log(newList);
     });
   }
 
@@ -115,18 +118,27 @@ export class ChallengeService implements OnDestroy {
   }
 
   onReject(id: number) {
-    const challenge = this.challenges.value.find( x => x.id === id);
-    if (challenge.sender === this.authService.userId) {
-      return this.http.post(environment.url.challenge.reject, {id})
+    return this.http.post(environment.url.challenge.reject, {id})
       .pipe(tap((res: SqlResponse) => {
         this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
         if (res.status) {
           this.onRefresh();
+        } else {
+          this.snackBar.open(res.message[0], 'DISMISS', {duration: 2000});
         }
       }));
-    } else {
-      return EMPTY;
-    }
+    // const challenge = this.challenges.value.find( x => x.id === id);
+    // if (challenge.sender === this.authService.userId) {
+    //   return this.http.post(environment.url.challenge.reject, {id})
+    //   .pipe(tap((res: SqlResponse) => {
+    //     this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
+    //     if (res.status) {
+    //       this.onRefresh();
+    //     }
+    //   }));
+    // } else {
+    //   return EMPTY;
+    // }
   }
 
   ngOnDestroy() {

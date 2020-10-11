@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/MatSnackBar';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { SqlResponse } from '../../shared/collection';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -35,14 +37,14 @@ export class ForgotPasswordPageComponent implements OnInit {
 			return;
 		}
 
-		this.http.get(environment.user.otp)
+		this.http.get(environment.url.user.reset)
 		.subscribe((res: SqlResponse) => {
 			this.loading = false;
 			if (res.status) {
 				this.otpSent = true;
 				this.snackBar.open('OTP Sent Success, Please Check Your Email', '', {duration: 2000});
 			} else {
-				this.snackbar.open(res.messages[0], 'DISMISS', {duration: 2000});
+				this.snackBar.open(res.message[0], 'DISMISS', {duration: 2000});
 			}
 		});
 	}
@@ -53,13 +55,13 @@ export class ForgotPasswordPageComponent implements OnInit {
 			return;
 		}
 
-		this.http.post(environment.user.reset, this.forgotPageForm.value)
+		this.http.post(environment.url.user.reset, this.forgotPageForm.value)
 		.subscribe((res: SqlResponse) => {
 			if (res.status) {
 				this.snackBar.open('Password Reset Success', 'LOGIN', {duration: 2000});
 				this.router.navigate(['/login']);
 			} else {
-				this.snackBar.open(res.messages[0], 'TRY AGAIN', {duration: 2000});
+				this.snackBar.open(res.message[0], 'TRY AGAIN', {duration: 2000});
 			}
 		})
 	}
