@@ -50,6 +50,7 @@ export class ChallengeListItemComponent implements OnInit {
       andWhere: {id: this.challenge.id},
       userData: {room: this.roomCode.value, state: State[State.ACTIVE]}
     }).subscribe((res: SqlResponse) => {
+			console.log(res);
       this.loading = false;
       this.snackBar.open(res.message[0]);
     })
@@ -59,6 +60,7 @@ export class ChallengeListItemComponent implements OnInit {
     this.loading = true;
     this.cs.onAccept(this.challenge.id, this.challenge.amount)
     .subscribe((res: SqlResponse) => {
+			console.log(res);
       this.loading = false;
       this.snackBar.open(res.message[0], 'DISMISS', {duration: 5000});
     })
@@ -67,6 +69,9 @@ export class ChallengeListItemComponent implements OnInit {
   onReject() {
     this.loading = true;
     this.cs.onReject(this.challenge.id)
-    .subscribe(() => this.loading = false);
+    .subscribe((res) => {
+			console.log(res);
+			this.loading = false
+		});
   }
 }
