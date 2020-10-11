@@ -22,9 +22,10 @@
         </div>
     </div>
 
-    <div class="text-center bg-dark text-light d-block w-100 rounded" *ngIf="isActive()">
+    <button mat-stroked-button color="link" class="text-center d-block w-100 rounded" *ngIf="isActive()" [cdkCopyToClipboard]="challenge.room">
         Accepted By - {{ challenge.rtitle }} <br> Room Code - <strong class="text-uppercase">{{ challenge.room }}</strong>
-    </div>
+        <br> <small>Click Here To Copy Room Code</small>
+    </button>
 
     <button class="btn btn-success d-block mt-2 w-100" *ngIf="isActive()" [routerLink]="['/player', 'result', challenge.id]">
         Claim Victory

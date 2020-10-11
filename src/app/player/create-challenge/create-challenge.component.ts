@@ -20,7 +20,7 @@ export class CreateChallengeComponent implements OnInit {
 
   ngOnInit(): void {
     this.createGameForm = this.fb.group({
-      amount: [10, [Validators.required, Validators.min(10)]]
+      amount: [100, [Validators.required, Validators.min(100)]]
     });
   }
 

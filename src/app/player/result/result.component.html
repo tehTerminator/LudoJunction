@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="loading?'loading':''">
     <div class="row">
         <div class="col" *ngIf="!!challenge">
             <h4 class="card-title">

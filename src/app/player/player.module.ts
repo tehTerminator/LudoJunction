@@ -17,6 +17,7 @@ import { PlayComponent } from './play/play.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ReferEarnPageComponent } from './refer-earn-page/refer-earn-page.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-		ClipboardModule
+    ClipboardModule,
+    MatIconModule
   ],
   providers: [ChallengeService]
 })

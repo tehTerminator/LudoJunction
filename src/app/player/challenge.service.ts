@@ -33,6 +33,7 @@ export class ChallengeService implements OnDestroy {
   onRefresh() {
     this.http.get(environment.url.challenge.get)
     .subscribe((res: SqlResponse) => {
+      console.log('onRefresh()', res);
       const newList: Challenge[] = [];
       res.data.forEach((item: SqlObject) => {
         newList.push({

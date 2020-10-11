@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChallengeService } from '../challenge.service';
 
 @Component({
   selector: 'app-play',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayComponent implements OnInit {
 
-  constructor() { }
+  constructor(private cs: ChallengeService) { }
 
   ngOnInit(): void {
+    this.cs.onRefresh();
   }
 
 }

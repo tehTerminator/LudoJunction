@@ -5,7 +5,7 @@
             <mat-label>Challenge Amount</mat-label>
             <input matInput formControlName="amount" name="amount" min=10 step="10" type="number" placeholder="Enter Challange Amount" />
             <mat-error *ngIf="amount.errors && amount.errors.min">
-                Amount Cannot Be Less Than 10.
+                Amount Cannot Be Less Than 100.
             </mat-error>
             <mat-error *ngIf="amount.errors && amount.errors.required">
                 Amount Cannot Be Empty.
