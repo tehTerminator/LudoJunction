@@ -1,0 +1,80 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/MatSnackBar';
+import { Router } from '@angular/router';
+
+
+@Component({
+  selector: 'app-forgot-password-page',
+  templateUrl: './forgot-password-page.component.html',
+  styleUrls: ['./forgot-password-page.component.css']
+})
+export class ForgotPasswordPageComponent implements OnInit {
+	forgotPageForm: FormGroup;
+	otpSent = false;
+	loading = false;
+
+  constructor(
+		private router: Router,
+		private snackBar: MatSnackBar,
+		private fb: FormBuilder,
+		private http: HttpClient) { }
+
+  ngOnInit(): void {
+		this.forgotPageForm = this.fb.group({
+			mobile: ['', [Validators.required, Validators.pattern('^[6-9][0-9]{9}$')]],
+			otp: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+			password: ['', Validators.required]
+		});
+  }
+
+	onSendOtp(): void {
+		if (this.mobile.invalid) {
+			this.snackBar.open('Invalid Mobile Number', 'TRY AGAIN', {duration: 2000});
+			return;
+		}
+
+		this.http.get(environment.user.otp)
+		.subscribe((res: SqlResponse) => {
+			this.loading = false;
+			if (res.status) {
+				this.otpSent = true;
+				this.snackBar.open('OTP Sent Success, Please Check Your Email', '', {duration: 2000});
+			} else {
+				this.snackbar.open(res.messages[0], 'DISMISS', {duration: 2000});
+			}
+		});
+	}
+
+	onSubmit(): void {
+		if (this.forgotPageForm.invalid) {
+			this.snackBar.open('Invalid Form Data', 'TRY AGAIN', {duration: 2000});
+			return;
+		}
+
+		this.http.post(environment.user.reset, this.forgotPageForm.value)
+		.subscribe((res: SqlResponse) => {
+			if (res.status) {
+				this.snackBar.open('Password Reset Success', 'LOGIN', {duration: 2000});
+				this.router.navigate(['/login']);
+			} else {
+				this.snackBar.open(res.messages[0], 'TRY AGAIN', {duration: 2000});
+			}
+		})
+	}
+
+	/*****GETTERS*****/
+	get mobile(): FormControl {
+		return this.forgotPageForm.get('mobile') as FormControl;
+	}
+
+	get otp(): FormControl {
+		return this.forgotPageForm.get('otp') as FormControl;
+	}
+
+	get password(): FormControl {
+		return this.forgotPageForm.get('password') as FormControl;
+	}
+
+}

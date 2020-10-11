@@ -11,10 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { ForgotPasswordPageComponent } from './forgot-password-page/forgot-password-page.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, SignInComponent, SignUpComponent, ActivateUserComponent],
+  declarations: [LoginComponent, SignInComponent, SignUpComponent, ActivateUserComponent, ForgotPasswordPageComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,
