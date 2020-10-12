@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserNavComponent } from './nav-bar/user-nav/user-nav.component';
 import { AdminNavComponent } from './nav-bar/admin-nav/admin-nav.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AdminNavComponent } from './nav-bar/admin-nav/admin-nav.component';
     NavBarComponent,
     TermsPageComponent,
     UserNavComponent,
-    AdminNavComponent
+    AdminNavComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
