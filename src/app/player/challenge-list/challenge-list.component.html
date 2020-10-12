@@ -2,7 +2,7 @@
 <div *ngIf="challenges.length > 0; else noChallenge;">
     <h3>Available Challenges</h3>
     <div class="list-group">
-        <div class="list-group-item" *ngFor="let challenge of challenges">
+        <div [@item] class="list-group-item" *ngFor="let challenge of challenges">
             <app-challenge-list-item [challenge]="challenge"></app-challenge-list-item>
         </div>
     </div>

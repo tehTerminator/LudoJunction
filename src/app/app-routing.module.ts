@@ -4,9 +4,12 @@ import { PlayerGuard } from './player/player.guard';
 import { AdminGuard } from './admin/admin.guard';
 import { LoginGuard } from './shared/login.guard';
 import { TermsPageComponent } from './terms-page/terms-page.component';
-
+import { HomePageComponent } from './home-page/home-page.component';
 
 const routes: Routes = [
+	{
+		path: 'home', component: HomePageComponent
+	},
   { 
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
@@ -25,7 +28,7 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [AdminGuard]
   },
-  { path: '**', redirectTo: '/login/signIn', pathMatch: 'full'}];
+  { path: '**', redirectTo: '/home', pathMatch: 'full'}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

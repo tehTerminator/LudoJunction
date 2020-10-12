@@ -11,7 +11,7 @@ import { SqlResponse, UserType } from './../../shared/collection';
 @Component({
 	selector: 'app-sign-in',
 	templateUrl: './sign-in.component.html',
-	styleUrls: ['./sign-in.component.css']
+	styleUrls: ['./sign-in.component.css'],	
 })
 export class SignInComponent implements OnInit {
 	signInForm: FormGroup;
