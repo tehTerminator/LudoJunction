@@ -7,7 +7,8 @@ export const environment = {
       activate: 'http://ludojunction.com/api/user.activate.php',
       select: 'http://ludojunction.com/api/user.select.php',
       revalidate: 'http://ludojunction.com/api/user.validate.php',
-      reset: 'http://ludojunction.com/api/user.reset.php'
+      reset: 'http://ludojunction.com/api/user.reset.php',
+      forgot: 'http://ludojunction.com/api/forgot.password.php'
     },
     balance: {
       view: 'http://ludojunction.com/api/balance.view.php',
