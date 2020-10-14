@@ -28,6 +28,10 @@ export class ChallengeListItemComponent implements OnInit {
     return this.challenge.sender === this.as.userId
   }
 
+	showRejectBtn() {
+		return this.isMine() || this.challenge.receiver === this.as.userId;
+	}
+
   showAcceptBtn() {
     if ( this.isMine() ) {
       return false;
