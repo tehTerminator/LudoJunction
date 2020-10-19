@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="btn-group w-100 mt-3">
-                        <button type="button" class="btn btn-success" (click)="onApprove()" [disabled]="!!request.screenshot">Approve</button>
+                        <button type="button" class="btn btn-success" (click)="onApprove()" [disabled]="!request.screenshot">Approve</button>
                         <button type="button" class="btn btn-danger" (click)="onReject()">Reject</button>
                     </div>
                 </div>

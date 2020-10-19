@@ -41,11 +41,12 @@ export class AuthService implements OnDestroy {
         if (response.status && response.data.length === 1) {
           const userData = response.data[0];
 
-          // When Signing In, the token is fresh generated however
+          // When Signing In, the token is fresh generated 
+          // So No Need to get Time From Server. 
           // Our Server has Arizona Timezone and handleAuthentication()
           // Makes Correction to this time. So We change current time to 
           // Arizona Timezone and Let handleAuthentication() Make Appropriate
-          // Correction. This should fix the bug when First Login Won't Work
+          // Correction. This should fix the bug when First Login Won't Work  
           userData.generatedOn = (new Date).getTime() - 12.5 * HOUR;
           // console.log('response.status ===', response.status);
           this.handleAuthentication(userData);

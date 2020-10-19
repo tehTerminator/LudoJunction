@@ -37,14 +37,16 @@ export class ForgotPasswordPageComponent implements OnInit {
 			return;
 		}
 
-		this.http.get(environment.url.user.reset)
+		this.http.post(environment.url.user.forgot, {mobile: this.mobile.value})
 		.subscribe((res: SqlResponse) => {
+			console.log(res);
 			this.loading = false;
 			if (res.status) {
 				this.otpSent = true;
 				this.snackBar.open('OTP Sent Success, Please Check Your Email', '', {duration: 2000});
 			} else {
-				this.snackBar.open(res.message[0], 'DISMISS', {duration: 2000});
+				console.log('Error Occurred')
+				this.snackBar.open('Error Occurred Try Again', 'DISMISS', {duration: 2000});
 			}
 		});
 	}
@@ -55,7 +57,7 @@ export class ForgotPasswordPageComponent implements OnInit {
 			return;
 		}
 
-		this.http.post(environment.url.user.reset, this.forgotPageForm.value)
+		this.http.post(environment.url.user.forgot, this.forgotPageForm.value)
 		.subscribe((res: SqlResponse) => {
 			if (res.status) {
 				this.snackBar.open('Password Reset Success', 'LOGIN', {duration: 2000});
