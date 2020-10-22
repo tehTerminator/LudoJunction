@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -17,6 +18,7 @@ export class SignUpComponent implements OnInit {
 	signUpForm: FormGroup;
 	readOnlyReferrer = false;
 	loading = false;
+	matcher = new ErrorStateMatcher();
 
 	constructor(
 		private http: HttpClient,
@@ -31,6 +33,7 @@ export class SignUpComponent implements OnInit {
 		this.signUpForm = this.fb.group({
 			title: ['', Validators.required],
 			password: ['', Validators.required],
+			confirmPassword: ['', Validators.required],
 			mobile: ['', [
 				Validators.required,
 				Validators.pattern("^[6-9][0-9]{9}$"),
@@ -47,7 +50,9 @@ export class SignUpComponent implements OnInit {
 					this.readOnlyReferrer = true;
 				}
 			}
-		)
+		);
+
+
 	}
 
 	get title(): FormControl {
@@ -57,6 +62,11 @@ export class SignUpComponent implements OnInit {
 	get password(): FormControl {
 		return this.signUpForm.get('password') as FormControl;
 	}
+
+	get confirmPassword(): FormControl {
+		return this.signUpForm.get('confirmPassword') as FormControl;
+	}
+	
 
 	get email(): FormControl {
 		return this.signUpForm.get('email') as FormControl;
@@ -79,8 +89,23 @@ export class SignUpComponent implements OnInit {
 		return Object.keys(formGroup).find(name => c === formGroup[name]);
 	}
 
+	checkPassword() {
+		if( this.password.value !== this.confirmPassword.value ) {
+			this.snackBar.open('Password and Confirm Password Mismatch', 'TRY AGAIN', {duration: 2000});
+			this.signUpForm.patchValue({confirmPassword: '', password: ''});
+			return;
+		}
+	}
+
+
 	onSubmit() {
 		if (this.signUpForm.invalid) {
+			return;
+		}
+
+		if( this.password.value !== this.confirmPassword.value ) {
+			this.snackBar.open('Password and Confirm Password Mismatch', 'TRY AGAIN', {duration:2000});
+			this.signUpForm.patchValue({confirmPassword: '', password: ''});
 			return;
 		}
 
@@ -108,43 +133,39 @@ export class SignUpComponent implements OnInit {
 		});
 	}
 
-	isAvailableValidator(control: AbstractControl)
-		: Promise<ValidationErrors | null> 
-			| Observable<ValidationErrors | null>  {
-				const promise = new Promise<ValidationErrors | null>((resolve) => {
-					const req: SqlRequest = {andWhere: {}};
-					req.andWhere[this.getControlName(control)] = control.value;
-					this.http.post(environment.url.user.select, req)
-					.subscribe((res: SqlResponse) => {
-						if (res.data.length > 0) {
-							const error: ValidationErrors = { isNotAvailable: true }
-							resolve(error);
-						} else {
-							resolve(null);
-						}
-					})
-				});
-				return promise;
-			}
+	isAvailableValidator(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null>  {
+		const promise = new Promise<ValidationErrors | null>((resolve) => {
+			const req: SqlRequest = {andWhere: {}};
+			req.andWhere[this.getControlName(control)] = control.value;
+			this.http.post(environment.url.user.select, req)
+			.subscribe((res: SqlResponse) => {
+				if (res.data.length > 0) {
+					const error: ValidationErrors = { isNotAvailable: true }
+					resolve(error);
+				} else {
+					resolve(null);
+				}
+			})
+		});
+		return promise;
+	}
 
-			isNotAvailableValidator(control: AbstractControl)
-				: Promise<ValidationErrors | null> 
-					| Observable<ValidationErrors | null> {
-						const promise = new Promise<ValidationErrors | null>((resolve) => {
-							if (control.value === '') {
-								resolve(null);
-							}
-							const req: SqlRequest = {andWhere: {mobile: control.value}};
-							this.http.post(environment.url.user.select, req)
-							.subscribe((res: SqlResponse) => {
-								if (res.data.length > 0) {
-									resolve(null);
-								} else {
-									const error: ValidationErrors = { referrerNotAvailable: true }
-									resolve(error);
-								}
-							})
-						});
-						return promise;
-					}
+	isNotAvailableValidator(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+		const promise = new Promise<ValidationErrors | null>((resolve) => {
+			if (control.value === '') {
+				resolve(null);
+			}
+			const req: SqlRequest = {andWhere: {mobile: control.value}};
+			this.http.post(environment.url.user.select, req)
+			.subscribe((res: SqlResponse) => {
+				if (res.data.length > 0) {
+					resolve(null);
+				} else {
+					const error: ValidationErrors = { referrerNotAvailable: true }
+					resolve(error);
+				}
+			})
+		});
+		return promise;
+	}
 }

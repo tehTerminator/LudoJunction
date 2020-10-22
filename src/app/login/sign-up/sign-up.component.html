@@ -15,16 +15,24 @@
         <mat-form-field class="d-block mt-3" appearance="fill">
             <mat-label>Full Name</mat-label>
             <input matInput type="text" name="title" formControlName="title" required />
-            <mat-error *ngIf="title.touched && !title.valid">
+            <mat-error *ngIf="title.hasError('required')">
                 Please Enter Your Full Name
             </mat-error>
         </mat-form-field>
 
         <mat-form-field class="d-block mt-3" appearance="fill">
             <mat-label>Password</mat-label>
-            <input matInput type="text" name="password" formControlName="password" required />
-            <mat-error *ngIf="!password.valid && password.touched">
+            <input matInput type="password" name="password" formControlName="password" required />
+            <mat-error *ngIf="password.hasError('required')">
                 Please Enter Password
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="d-block mt-3" appearance="fill">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" name="confirmPassword" (blur)="checkPassword()" formControlName="confirmPassword" required />
+            <mat-error *ngIf="confirmPassword.hasError('required')">
+                Please Confirm Your Password.
             </mat-error>
         </mat-form-field>
 

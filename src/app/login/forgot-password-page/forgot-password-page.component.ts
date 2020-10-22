@@ -26,7 +26,7 @@ export class ForgotPasswordPageComponent implements OnInit {
   ngOnInit(): void {
 		this.forgotPageForm = this.fb.group({
 			mobile: ['', [Validators.required, Validators.pattern('^[6-9][0-9]{9}$')]],
-			otp: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+			otp: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
 			password: ['', Validators.required]
 		});
   }
@@ -59,6 +59,7 @@ export class ForgotPasswordPageComponent implements OnInit {
 
 		this.http.post(environment.url.user.forgot, this.forgotPageForm.value)
 		.subscribe((res: SqlResponse) => {
+			console.log(res);
 			if (res.status) {
 				this.snackBar.open('Password Reset Success', 'LOGIN', {duration: 2000});
 				this.router.navigate(['/login']);
